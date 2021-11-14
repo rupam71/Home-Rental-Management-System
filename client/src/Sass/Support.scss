@@ -1,0 +1,19 @@
+.create-support-ticket{
+    padding: 2rem;
+    border:rgb(49, 47, 47) solid 2px ;
+}
+
+.close-span{
+    height: 2rem;
+    width: 100%;
+    background-color: rgb(49, 47, 47);
+    color: blanchedalmond;
+    text-align: center;
+    .fa-chevron-up{
+        font-size: 2rem;
+    }
+}
+
+.support-ticket-list {
+    margin-top: 2rem;
+}

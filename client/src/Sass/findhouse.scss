@@ -1,0 +1,187 @@
+.searchHouseContainer {
+  width: 100%;
+  margin: 20px auto;
+  background-color: rgb(165, 223, 223);
+  box-shadow: 5px 10px 8px rgb(193, 202, 202);
+  transition: 0.7s ease-in-out;
+}
+.searchHouseContainer:hover {
+  box-shadow: 0 0 18px rgb(179, 202, 202);
+  transition: 0.7s ease-in-out;
+}
+
+.searchHouseContainer {
+  h1 {
+    width: 22rem;
+    margin: 0 auto;
+    padding: 2rem 0;
+  }
+  .form-row {
+    input {
+      width: 70%;
+      height: 3rem;
+      margin: 0 auto;
+    }
+    @media screen and (max-width: 767px) {
+      label {
+        margin: -1rem 6rem;
+      }
+    }
+    @media screen and (max-width: 991px) and (min-width: 768px) {
+      label {
+        margin: -1rem 4rem;
+      }
+    }
+    @media screen and (min-width: 992px) {
+      label {
+        margin: -1rem 6rem;
+      }
+    }
+  }
+}
+.findbutton {
+  width: 15rem;
+  height: 4rem;
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin: 2rem auto;
+  background-color: #d84c4d;
+  border: 2px solid #d84c4d;
+  color: azure;
+}
+.findbutton:hover {
+  background-color: #000000;
+  border: 2px solid #000000;
+}
+
+.house-list-container {
+  width: 100%;
+  margin: 0 auto;
+  background-color: rgb(236, 237, 240);
+  // box-shadow: 5px 10px 8px rgb(193, 202, 202);
+  // transition: .7s ease-in-out;
+}
+
+.house-list-card {
+  width: 90%;
+  text-align: center;
+  margin: 0rem auto;
+  padding: 2rem;
+  .card {
+    background-color: #eb5454;
+   // box-shadow: 0 0 18px #ee1919;
+    color: aliceblue;
+    font-size: 17px;
+    font-weight: 400;
+    font-family: "Red Hat Display", Helvetica, Arial, sans-serif;
+    transition: 0.7s ease-in-out;
+    img {
+        margin: 1rem;
+        width: 100%;
+    }
+    .list-group{
+        .list-group-item {
+          background-color: #e25c5c;
+        }
+    }
+    .card-title{
+      height: 4rem;
+    }
+  }
+  .card:hover {
+      background-color: rgb(53, 53, 209);
+   // box-shadow: 0 0 18px rgb(4, 4, 255);
+    transition: 0.7s ease-in-out;
+    .list-group{
+        .list-group-item:hover {
+          background-color: white;
+          color: black;
+          font-weight: bold;
+        }
+    }
+  }
+}
+.showHouse{
+  background-color: #3c618b;;
+}
+
+.house-info{
+  background-color: #ccdfe6;
+  font-weight: 400;
+  font-family: "Red Hat Display", Helvetica, Arial, sans-serif;
+  margin-top: -1rem;
+  h1{
+    font-size: 28px;
+    font-weight: bold;
+    margin: 2rem auto;
+  }
+  table{
+    border: 1px solid #928383;
+  }
+    td{
+      font-size: 16px;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+}
+
+@media screen and (min-width: 750px) {
+  .houseowner-info{
+    background-color: #3c618b;
+    font-weight: 400;
+    font-family: "Red Hat Display", Helvetica, Arial, sans-serif;
+    text-align: center;
+    color: #ccdfe6;
+    position:fixed ;
+    top: 5rem;
+    right: 0;
+  }
+}
+@media screen and (max-width: 750px) {
+  .houseowner-info{
+    background-color: #3c618b;
+  font-weight: 400;
+  font-family: "Red Hat Display", Helvetica, Arial, sans-serif;
+  text-align: center;
+  color: #ccdfe6;
+  }
+}
+.houseowner-info{
+  
+  // position:fixed ;
+  // top: 5rem;
+  // right: 0;
+  h1{
+    font-size: 28px;
+    font-weight: bold;
+    margin: 2rem auto;
+    color: #ccdfe6;
+  } 
+  h2{
+    font-size: 20px;
+    font-weight: bold;   
+  } 
+}
+
+.profile-info {
+  background-color: #faf8f8;
+  padding: 2rem 0;
+  h3 {
+    font-family:monospace ;
+    font-size: 20px;
+    margin-top: 0;
+  }
+}
+
+.rent-button {
+  background-color: #d85151;
+  color: #ffffff;
+  box-shadow: 0 0 10px #519cb8;;
+  transition: 0.7s ease-in-out;
+ // height: 4rem;
+}
+.rent-button:hover{
+  background-color: #0b526b;
+  color: #ffffff;
+  box-shadow: 0 0 10px #3396d8;;
+    transition: 0.7s ease-in-out;
+}

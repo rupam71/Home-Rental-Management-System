@@ -1,0 +1,30 @@
+.review-box{
+    background-color: aliceblue;
+    padding-top: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-bottom: 1rem;
+    p{
+        font-size: 15px;
+        text-align: right;
+    }
+    .description{
+        margin: 0;
+        padding: 1rem 0;
+        text-align: justify;
+        font-family: monospace ;
+    }
+    .dropbtn{
+        background-color: #F0F8FF;
+    }
+    .dropdown {
+        margin: 0rem auto ;
+    }
+    form {
+        .form-row{
+            .form-group{
+                label {display: none;}
+            }
+        }
+    }
+}

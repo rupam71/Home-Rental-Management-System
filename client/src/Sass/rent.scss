@@ -1,0 +1,43 @@
+.rent-list-card {
+    width: 90%;
+    text-align: center;
+    margin: 0rem auto;
+    padding: 2rem;
+    .card {
+      background-color: #eb5454;
+      box-shadow: 0 0 18px #ee1919;
+      color: aliceblue;
+      font-size: 17px;
+      font-weight: 400;
+      font-family: "Red Hat Display", Helvetica, Arial, sans-serif;
+      transition: 0.7s ease-in-out;
+      img {
+          margin: 1rem;
+          width: 100%;
+      }
+      .list-group{
+          .list-group-item {
+            background-color: #e25c5c;
+            .btn{
+                background-color: #e25c5c;
+                border: none;
+            }
+          }
+      }
+      .card-title{
+        height: 5rem;
+      }
+    }
+    .card:hover {
+        background-color: rgb(0, 8, 8);
+      box-shadow: 0 0 18px rgb(4, 4, 255);
+      transition: 0.7s ease-in-out;
+      .list-group{
+          .list-group-item:hover {
+            background-color: #0069D9;
+            color: black;
+            font-weight: bold;
+          }
+      }
+    }
+  }
