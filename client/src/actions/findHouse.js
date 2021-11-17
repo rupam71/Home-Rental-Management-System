@@ -104,3 +104,50 @@ export const availableHouse = () => dispatch => {
         .then(res=>history.push(`/house/${id}`))
         .catch(err => dispatch(newError("Only Image can uploaded", "danger")))
     }
+
+export const serchHouse = (query) => dispatch => {
+    dispatch({ 
+        type:'SEARCH_HOUSE',
+        payload:query
+     })
+}
+
+//CREATE BOOKMARK
+export const createBookmark = (houseId) => async dispatch => {
+    authenticateToken()
+    console.log("houseId ::: ",houseId)
+    await axios.post(`/api/house/${houseId}/addbookmark`)
+    .then(res =>{
+        const {house,user} = res.data
+        dispatch({
+            type: 'HOUSE_EDIT',
+            payload: house
+        })
+        dispatch({
+            type: 'EDIT_PROFILE',
+            payload: user
+        })
+    })
+    .then(res=> dispatch(newError("Bookmark Added", "success")))
+    .catch(err => errorHandler(err,dispatch))
+}
+
+//CREATE BOOKMARK
+export const removeBookmark = (houseId) => async dispatch => {
+    authenticateToken()
+    console.log("houseId ::: ",houseId)
+    await axios.post(`/api/house/${houseId}/removebookmark`)
+    .then(res =>{
+        const {house,user} = res.data
+        dispatch({
+            type: 'HOUSE_EDIT',
+            payload: house
+        })
+        dispatch({
+            type: 'EDIT_PROFILE',
+            payload: user
+        })
+    })
+    .then(res=> dispatch(newError("Bookmark Removed", "success")))
+    .catch(err => errorHandler(err,dispatch))
+}

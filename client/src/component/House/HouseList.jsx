@@ -26,7 +26,6 @@ const HouseList = ({headline}) => {
                         <img className="card-img-top mx-auto" src={`/api/house/${house._id}/picture/0`} alt="Card image cap" style={{width:'100%',margin:'0 0'}} />
                         <div className="card-body">
                             <h3 className="card-title">{house.houseAddress}</h3>
-
                             <ul className="list-group ">
                                 <li className="list-group-item">{house.totalRoomNo} Room</li>
                                 {/* <li className="list-group-item">{house.bedRoom} BedRoom</li> */}
@@ -39,7 +38,6 @@ const HouseList = ({headline}) => {
                                 <li className="list-group-item ">{house.totalView} Time Viewd</li>
                                 {/* <li className="list-group-item ">{house.totalRented} Time Rented</li> */}
                             </ul>
-
                             <Link to={`/house/${house._id}`} className=" btn btn-primary card-link mt-3 btn-lg">More</Link>
                         </div>
                     </div>

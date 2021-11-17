@@ -62,6 +62,9 @@ const userSchema = new mongoose.Schema({
     profilePicture : {
         type: Buffer
     },
+    bookmarkedHouse: [{
+        type:String
+    }],
     tokens: [{
         token: {
             type:String,

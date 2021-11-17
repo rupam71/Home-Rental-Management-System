@@ -204,4 +204,42 @@ module.exports = (app) => {
       res.status(404).send();
     }
   });
+
+    //Added To Bookmark //DONE
+    app.post("/api/house/:houseId/addbookmark", auth, async (req, res) => {
+      const house = await House.findById(req.params.houseId);
+      if (!house) return res.status(400).send("House Not Found");
+
+      house.bookmarkedBy = [...house.bookmarkedBy, req.user._id]
+      req.user.bookmarkedHouse = [...req.user.bookmarkedHouse, req.params.houseId]
+      
+      try {
+        await house.save();
+        await req.user.save()
+        res.status(201).send({house:house,user:req.user});
+      } catch (e) {
+        res.status(400).send(Object.entries(e.errors)[0][1].message);
+      }
+    });
+
+    //Removed Bookmark //DONE
+    app.post("/api/house/:houseId/removebookmark", auth, async (req, res) => {
+      const house = await House.findById(req.params.houseId);
+      if (!house) return res.status(400).send("House Not Found");
+
+      // house.bookmarkedBy = [...house.bookmarkedBy, req.user._id]
+      // req.user.bookmarkedHouse = [...req.user.bookmarkedHouse, req.params.houseId]
+
+      house.bookmarkedBy = house.bookmarkedBy.filter(element=>element !== req.user._id.toString())
+      req.user.bookmarkedHouse = req.user.bookmarkedHouse.filter(element=>element !== req.params.houseId)
+
+      try {
+        await house.save();
+        await req.user.save()
+        res.status(201).send({house:house,user:req.user});
+      } catch (e) {
+        res.status(400).send(Object.entries(e.errors)[0][1].message);
+      }
+    });
+
 };

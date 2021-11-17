@@ -72,6 +72,9 @@ const houseSchema = new mongoose.Schema({
     },
     houseImages: [{
         type:Buffer
+    }],
+    bookmarkedBy: [{
+        type:String
     }]
 },{
     timestamps: true 

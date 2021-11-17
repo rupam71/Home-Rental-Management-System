@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { showHouse } from '../../actions/findHouse';
-import { userProfile, deleteHouse } from './../../actions/findHouse';
+import { userProfile, deleteHouse, createBookmark, removeBookmark } from './../../actions/findHouse';
 import { Link } from 'react-router-dom';
 import CreateReview from './CreateReview';
 import ShowReview from './ShowReview';
 import { getHouseReview } from '../../actions/review';
 import { createRent } from '../../actions/rent';
-import { Carousel } from 'react-bootstrap'
+import { Carousel, OverlayTrigger, Tooltip } from 'react-bootstrap'
 
 import axios from 'axios';
 
@@ -17,8 +17,11 @@ const ShowHouse = () => {
     const houseData = useSelector(state => state.house)
     const user = useSelector(state => state.auth.user)
 
-    let userId
-    if (user) userId = user._id
+    let userId,bookmarkLength
+    if (user) {
+        userId = user._id 
+        bookmarkLength = user.bookmarkedHouse.length
+    }
 
     const houseId = useParams().id
     console.log('House Id::', houseId)
@@ -35,7 +38,15 @@ const ShowHouse = () => {
     console.log(houseData)
     console.log("House Owner Id :: ", houseData[0].houseOwnerId)
     const [index, setIndex] = useState(0);
-
+    const [bookmarkedAlready, setbookmarkedAlready] = useState(false);
+    useEffect(() => {
+        setbookmarkedAlready(false)
+        if(user) user.bookmarkedHouse.forEach(element=>{
+            if(element===houseId) {
+                setbookmarkedAlready(true)
+            }
+        })
+    }, [bookmarkLength]);
     useEffect(() => {
         dispatch(userProfile(houseData[0].houseOwnerId))
         // eslint-disable-next-line
@@ -53,6 +64,7 @@ const ShowHouse = () => {
                     var newFile = await new File([blobFile], 'name.jpeg', { type: 'image/jpeg' })
                     const localImageUrl = window.URL.createObjectURL(newFile)
                     houseImagesLink.push(localImageUrl)
+                    console.log(localImageUrl)
                 }
             }
         }
@@ -60,13 +72,35 @@ const ShowHouse = () => {
     }, [length]);
 
     const houseOwner = useSelector(state => state.user)
+    
+    const renderTooltip = (props) => (
+        console.log("props",props),
+        <Tooltip id="button-tooltip" {...props}>
+           {bookmarkedAlready ? 'Removed Bookmark' : 'Added Bookmark'}
+        </Tooltip>
+      );
 
+    const bookmarkRender = () => {
+        if(bookmarkedAlready) return <OverlayTrigger placement="top" delay={{ show: 250, hide: 400 }} overlay={renderTooltip}>
+            <Link onClick={() => dispatch(removeBookmark(houseId))}
+                className="btn rent-button btn-lg bg-dark" style={{color:'blue'}}
+                ><i class="fas fa-bookmark"/></Link> 
+        </OverlayTrigger>
+        else {
+            return <OverlayTrigger placement="top" delay={{ show: 250, hide: 400 }} overlay={renderTooltip}>
+                <Link onClick={() => dispatch(createBookmark(houseId))}
+                    className="btn rent-button btn-lg bg-light" style={{color:'black'}}
+                    ><i class="fas fa-bookmark"/></Link>
+            </OverlayTrigger>
+        }
+    }
     const dropdownRender = () => {
-        if (!user) return <div></div>
+        if (!user || houseData[0].houseStatus !== 'available') return <div></div>
         else if (houseData[0].houseOwnerId !== userId) return <div className="dropdown d-flex justify-content-end">
             <Link onClick={() => dispatch(createRent({ houseId }))}
                 className="btn rent-button btn-lg"
             >Rent This House</Link>
+            {bookmarkRender()}
         </div>
         else return <div className="dropdown dropdown d-flex justify-content-end">
             <button className="dropbtn"><h2><i className="fas fa-sliders-h" /></h2></button>
@@ -89,7 +123,7 @@ const ShowHouse = () => {
         const handleSelect = (selectedIndex, e) => {
             setIndex(selectedIndex);
         };
-        return (
+        return ( <div style={{maxWidth:'1000px', margin:'auto'}}>
             <Carousel activeIndex={index} onSelect={handleSelect} style={{ color: 'black' }}>
                 {number && number.map((num, index) => {
                     return <Carousel.Item interval={2000}>
@@ -101,6 +135,7 @@ const ShowHouse = () => {
                     </Carousel.Item>
                 })}
             </Carousel>
+            </div>
         );
     }
 
@@ -111,12 +146,13 @@ const ShowHouse = () => {
                     <h1 className='text-center'>Your House Here</h1>
                     {houseData.map(house => {
                         return <div key={house._id}>
-                            <div className="row mb-3">
-                                <div className="col-9">
+                            {HousePictureRender(house.houseImages, house._id)}
+                            <div className="row my-4">
+                                <div className="col-8">
                                     <h2>{house.houseAddress}</h2>
                                     <h4 className="card-text">{house.description}</h4>
                                 </div>
-                                <div className="col-3">
+                                <div className="col-4">
                                     {dropdownRender()}
                                 </div>
                             </div>
@@ -145,7 +181,7 @@ const ShowHouse = () => {
                                     </tr>
                                 </tbody>
                             </table>
-                            {HousePictureRender(house.houseImages, house._id)}
+                            
                         </div>
                     })}
 
