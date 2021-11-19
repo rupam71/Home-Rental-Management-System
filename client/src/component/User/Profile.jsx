@@ -68,7 +68,7 @@ const Profile = () => {
             </div>
             <div className="col-md-3 col-sm-6 p-2">
                 <div className='text-center my-2'>
-                    <Link to='' onClick={() => dispatch(deleteProfileForm())}
+                    <Link to='#' onClick={() => dispatch(deleteProfileForm())}
                         className='btn btn-primary btn-lg container-fluid'>Delete Account</Link>
                 </div>
             </div>

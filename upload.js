@@ -8,7 +8,6 @@ const  upload = multer({
         fileSize: 1000000 //1MB = One Million  
     },
     fileFilter(req, file, cb){
-        console.log("MULTER :::",file)
          if(!file.originalname.endsWith('.jpg' )
          && !file.originalname.endsWith('jpeg' )
          && !file.originalname.endsWith('JPEG' )

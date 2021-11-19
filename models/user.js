@@ -2,6 +2,9 @@ const mongoose = require('mongoose')
 const validator = require('validator')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
+const Ratings = require('./ratings')
+const House = require('./house')
+const Rent = require('./rent')
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -115,6 +118,34 @@ userSchema.statics.findByCredential = async (email,password) => {
     
     return user
 }
+
+userSchema.pre('remove', async function(next) {
+    const user = this
+
+    const rent = await Rent.find({ houseSeekerId: user._id })
+
+    for(let i=0; i<rent.length;i++){
+        const house = await House.findByIdAndUpdate(
+            rent[i].houseId,
+            { houseStatus:'available' },
+            { new: true }
+        )
+        house.save()
+    }
+
+    await Ratings.deleteMany({
+        houseOwnerId  : user._id
+    })
+    
+    await House.deleteMany({
+        houseOwnerId  : user._id
+    })
+    await Rent.deleteMany({ 
+        $or: [ { houseSeekerId: user._id }, { houseOwnerId: user._id } ] 
+    })
+
+    next()
+})
 
 const User = mongoose.model('user',userSchema)
 module.exports = User

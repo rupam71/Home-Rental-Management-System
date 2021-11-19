@@ -15,8 +15,8 @@ const Navbar = () => {
         else setcollupseNavbarState('down')
     }
 
-    console.log("State ::: ", state)
-    console.log("User ::: ", user)
+    // console.log("State ::: ", state)
+    // console.log("User ::: ", user)
 
 
     const rendernavbar = () => {

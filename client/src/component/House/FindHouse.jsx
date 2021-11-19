@@ -25,7 +25,7 @@ const FindHouse = () => {
     const dispatch = useDispatch();
     const house = useSelector(state=>state.house)
     const user = useSelector(state=>state.auth.user)
-    console.log('HOUSELIST::: ',house)
+    // console.log('HOUSELIST::: ',house)
 
     const [houses, sethouses] = useState({
         houseAddress:'',

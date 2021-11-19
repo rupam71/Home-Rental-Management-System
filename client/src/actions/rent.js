@@ -2,6 +2,7 @@ import axios from 'axios'
 import { newError } from './error';
 import authenticateToken from './../utility/authenticateToken';
 import errorHandler from './../utility/errorHandler';
+import history from './../history.js'
 
 //CREATE Rent
 export const createRent = (value) => async dispatch => {
@@ -14,6 +15,7 @@ export const createRent = (value) => async dispatch => {
         })
     )
     .then(res=> dispatch(newError("You Rent This House", "success")))
+    .then(res=> history.push('/profile'))
     .catch(err => errorHandler(err,dispatch))
 }
 

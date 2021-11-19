@@ -13,7 +13,7 @@ const initialilState = {
     totalRented:'',
     houseOwnerId:'',
     createdAt :'',
-    houseImagesLength:''
+    houseImagesLength:0
 }
 
 export default function findHouse (state=[initialilState],action){

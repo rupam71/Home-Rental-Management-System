@@ -79,27 +79,30 @@ const ShowHouse = () => {
 
     const bookmarkRender = () => {
         if(bookmarkedAlready) return <OverlayTrigger placement="top" delay={{ show: 250, hide: 400 }} overlay={renderTooltip}>
-            <Link onClick={() => dispatch(removeBookmark(houseId))}
+            <Link to='#' onClick={() => dispatch(removeBookmark(houseId))}
                 className="btn rent-button btn-lg bg-dark" style={{color:'blue'}}
                 ><i class="fas fa-bookmark"/></Link> 
         </OverlayTrigger>
         else {
             return <OverlayTrigger placement="top" delay={{ show: 250, hide: 400 }} overlay={renderTooltip}>
-                <Link onClick={() => dispatch(createBookmark(houseId))}
+                <Link to='#' onClick={() => dispatch(createBookmark(houseId))}
                     className="btn rent-button btn-lg bg-light" style={{color:'black'}}
                     ><i class="fas fa-bookmark"/></Link>
             </OverlayTrigger>
         }
     }
+    const rentButtonRender = () => {
+        if (user && houseData[0].houseOwnerId !== userId && houseData[0].houseStatus === 'available') return <div className="dropdown d-flex justify-content-end mt-2 mx-4">
+        <Link onClick={() => dispatch(createRent({ houseId }))}
+            className="btn rent-button container-fluid btn-lg"
+        >Rent This House</Link>
+        <br/>
+        {bookmarkRender()}
+    </div>
+        else return <div></div> 
+    }
     const dropdownRender = () => {
-        if (!user || houseData[0].houseStatus !== 'available') return <div></div>
-        else if (houseData[0].houseOwnerId !== userId) return <div className="dropdown d-flex justify-content-end">
-            <Link onClick={() => dispatch(createRent({ houseId }))}
-                className="btn rent-button btn-lg"
-            >Rent This House</Link>
-            {bookmarkRender()}
-        </div>
-        else return <div className="dropdown dropdown d-flex justify-content-end">
+        if (user && houseData[0].houseStatus === 'available' && houseData[0].houseOwnerId === userId) return <div className="dropdown dropdown d-flex justify-content-end">
             <button className="dropbtn"><h2><i className="fas fa-sliders-h" /></h2></button>
             <div className="dropdown-content">
                 <div className='text-center'>
@@ -111,10 +114,11 @@ const ShowHouse = () => {
                 <div className='text-center'>
                     <Link to='' className='item'
                         onClick={() => dispatch(deleteHouse(houseData[0]._id))}
-                    >Delete Account</Link>
+                    >Delete House</Link>
                 </div>
             </div>
         </div>
+        else return <div></div>
     }
     const HousePictureRender = (number, id) => {
         const handleSelect = (selectedIndex, e) => {
@@ -145,13 +149,14 @@ const ShowHouse = () => {
                         return <div key={house._id}>
                             {HousePictureRender(house.houseImagesLength, house._id)}
                             <div className="row my-4">
-                                <div className="col-8">
+                                <div className="col-10">
                                     <h2>{house.houseAddress}</h2>
                                     <h4 className="card-text">{house.description}</h4>
                                 </div>
-                                <div className="col-4">
+                                <div className="col-2">
                                     {dropdownRender()}
                                 </div>
+                                {rentButtonRender()}
                             </div>
 
                             <table className="table table-striped table-hover">
