@@ -12,11 +12,6 @@ require('./router/house')(app)
 require('./router/ratings')(app)
 require('./router/supportticket')(app)
 
-app.get('/', (req,res) => {
-    res.send('Hello World Hell')
-    console.log(process.env.mongoURI)
-})
-
 if(process.env.NODE_ENV === 'production') {
     // express will serve up production assests
     // like our main.js or main.css file
