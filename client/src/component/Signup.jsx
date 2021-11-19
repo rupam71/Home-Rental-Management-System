@@ -20,7 +20,6 @@ const Signup = () => {
     const [confirm, setconfirm] = useState({
         password:''
     })
-    console.log("signup :: ",signup)
     const dispatch = useDispatch();
 
     const handleSubmit = e => {
@@ -32,10 +31,10 @@ const Signup = () => {
         else dispatch(signUpForm(signup))
     }
     return (
-        <div className='container mt-5' enctype="multipart/form-data">
+        <div className='container mt-5'>
             <h1 className='text-center mb-5'> Signup </h1>
             <form onSubmit={handleSubmit} className='mb-5'>
-                <div class="form-row">
+                <div className="form-row">
                     <Input
                     change={e=>setsignup({...signup, name:e})}
                     type="name" label='Name' value={signup.name}/>
@@ -61,7 +60,7 @@ const Signup = () => {
                     change={e=>setsignup({...signup, address:e})}
                     type="text" label='Address' value={signup.address}/>
                 </div>
-                <button type="submit" class="btn btn-primary btn-lg my-3">Sign in</button>
+                <button type="submit" className="btn btn-primary btn-lg my-3">Sign in</button>
                 <br/>
                 <Link to="/login" >Already Have An Account? Login Here...</Link>
             </form>

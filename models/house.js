@@ -73,6 +73,10 @@ const houseSchema = new mongoose.Schema({
     houseImages: [{
         type:Buffer
     }],
+    houseImagesLength:{
+        type: Number,
+        default: 0
+    },
     bookmarkedBy: [{
         type:String
     }]

@@ -9,14 +9,15 @@ import { newError } from '../../actions/error';
 
 const UploadHouseImage = () => {
     const dispatch =  useDispatch()
-    const length = useSelector(state => state.house[0].houseImages.length)
-
+    const length = useSelector(state => state.house[0].houseImagesLength)
+    
     const [houseImagesFormData, sethouseImagesFormData] = useState([])
     const [houseImagesLink, sethouseImagesLink] = useState([])
     const [link, setlink] = useState('');
     const [image, setImage] = useState(null);
     const [crop, setCrop] = useState({aspect:16/9});
     const [result,setResult] = useState(null);
+    // eslint-disable-next-line
     const [reRender,setreRender] = useState(null);
 
     const id = useParams().id
@@ -42,6 +43,7 @@ const UploadHouseImage = () => {
             }
         }
         fetchData();
+        // eslint-disable-next-line
     }, [length]);
 
     const handlePreview = (e) => {
@@ -110,7 +112,7 @@ const UploadHouseImage = () => {
         if(houseImagesLink.length===8) return <h3>You already upload 8 image. Please Submit this or delete some.</h3>
         else if(!addImageState) return <button className="btn btn-primary" onClick={e=>setaddImageState(true)}>+ Add Image</button>
         else return <div>
-            <form enctype='multipart/form-data'>
+            <form encType='multipart/form-data'>
                     <input type='file' onChange={handlePreview} className="form-control-file my-3" name='houseImage'/>
                     </form>
                     {link && ( <div className='text-center'>
@@ -154,7 +156,7 @@ const UploadHouseImage = () => {
                    <h3 className='text-center'> {8-houseImagesLink.length} More Picture can Upload </h3>
                    <h3 className='text-center text-danger'> Click Picture To Remove </h3>
                    {houseImagesLink.map(img=>{
-                       return <a href='#uploadHouseImageHeading'><img src={img} onClick={()=>removeImage(img)} alt="House PhotosS" className='col-6 previewImage' /></a>
+                       return <a href='#uploadHouseImageHeading' key={img}><img src={img} onClick={()=>removeImage(img)} alt="House PhotosS" className='col-6 previewImage' /></a>
                    })}
                    <div className='text-center' id='addInQueue'><button className="btn btn-primary" onClick={handleUploadHouseImages}>Submit</button></div>
                 </div>}

@@ -15,7 +15,6 @@ export default function editReview (state = initialState , action) {
             review:{_id:null},
             edit:false
         }  
-      //  case 'REMOVE_ERROR': return state.filter(alert => alert.id !== action.payload)
         default : return state;
     }
 }

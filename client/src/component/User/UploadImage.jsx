@@ -14,9 +14,7 @@ const UploadImage = () => {
     const [result,setResult] = useState(null);
 
     const handlePreview = (e) => {
-        console.log('PREVIEW IMAGE ::: ',e.target.files[0])
         const localImageUrl = window.URL.createObjectURL(e.target.files[0])
-        console.log("Local Image Url ::: ",localImageUrl)
         setlink(localImageUrl)
     }
     const getCroppedImg = async () => {
@@ -41,18 +39,14 @@ const UploadImage = () => {
 
              const base64Image = await canvas.toDataURL("image/jpeg", 1);
             setResult(base64Image);
-            console.log(result);
         } catch (e) {
             console.log("crop the image");
         }
     };
     const handleUpload = async() => {
         const blob = await axios.get(result,{responseType: 'blob',contentType: "image/jpeg"}).then(r => r.data);
-        console.log(blob)
-
         var blobFile = await blob.slice(0,blob.size,'image/jpeg')
         var newFile = await new File([blobFile], 'name.jpeg', {type:'image/jpeg'})
-        console.log(newFile)
 
         await Resizer.imageFileResizer(
             newFile,
@@ -67,8 +61,6 @@ const UploadImage = () => {
                     console.log("Local Image Url ::: ",localImageUrl)
                     dispatch(profileImageUrl(localImageUrl))
     
-                 //   setuploadImage({buffer:uri})
-    
                     const formData = new FormData();
                     formData.append('profilePicture',uri);
                     dispatch(uploadProfileImage(formData))
@@ -81,7 +73,7 @@ const UploadImage = () => {
 
     return  <div style={{border:'2px solid red',padding:'1rem'}}> 
     <h2 className='my-3'>Change Profile Picture</h2>
-    <form enctype="multipart/form-data" >
+    <form encType="multipart/form-data" >
         <input type="file" onChange={handlePreview}
         className="form-control-file" name='profilePicture'/>
         </form>

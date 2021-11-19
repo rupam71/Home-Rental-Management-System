@@ -2,21 +2,9 @@ const mongoose = require('mongoose');
 const House = require('./house');
 
 const rentSchema = new mongoose.Schema({
-    houseId : {
-        type: String,
-        required: true,
-        trim:true
-    },
-    houseOwnerId : {
-        type: String,
-        required: true,
-        trim:true
-    },
-    houseSeekerId : {
-        type: String,
-        required: true,
-        trim:true
-    }
+    houseId : { type: mongoose.Schema.Types.ObjectId, ref: 'house' },
+    houseOwnerId : { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
+    houseSeekerId : { type: mongoose.Schema.Types.ObjectId, ref: 'user' }
 },{
     timestamps: true
 })

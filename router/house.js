@@ -44,8 +44,17 @@ module.exports = (app) => {
 
   //get all house  //DONE
   app.get("/api/houses/available", async (req, res) => {
-    const house = await House.find({houseStatus:'available'});
+    const house = await House.find({houseStatus:'available'}).select('-houseImages');
+    try {
+      res.status(201).send(house);
+    } catch (error) {
+      res.status(400).send(error);
+    }
+  })
 
+   //get all house Login User //DONE
+   app.get("/api/houses/available/authuser", auth, async (req, res) => {
+    const house = await House.find({houseStatus:'available',houseOwnerId:{$ne:req.user._id}}).select('-houseImages');
     try {
       res.status(201).send(house);
     } catch (error) {
@@ -55,54 +64,8 @@ module.exports = (app) => {
 
   //get all house  //DONE
   app.get("/api/houses", async (req, res) => {
-    const house = await House.find({});
-
-    // let assume = {
-    //     houseAddress:'',
-    //     totalRoomNo:'',
-    //     size:'',
-    //     rentFee:''
-    // }
-    // let runQuery = false;
-
-    // let house
-    // if(req.query.rentFee){
-    //     assume.rentFee = req.query.rentFee;
-    //     house = await House.find({ rentFee : req.query.rentFee})
-    //     runQuery = true
-    // }
-    // if(req.query.size){
-    //     // Search By size
-    //     assume.size = req.query.size;
-    //     house = await house.find({ size : req.query.size})
-    //     runQuery = true
-    // }
-    // if(req.query.totalRoomNo){
-    //     // Search By totalRoomNo
-    //     assume.totalRoomNo = req.query.totalRoomNo;
-    //     house = await House.find({ totalRoomNo : req.query.totalRoomNo})
-    //     runQuery = true
-    // }
-    // if(req.query.houseAddress){
-    //     // Search By Name
-    //     assume.houseAddress = req.query.houseAddress;
-    //     house = await House.find({houseAddress: {$regex:req.query.houseAddress}})
-    //     runQuery = true
-    // }
-    // if(!runQuery) {
-    //     // Get All Service
-    //     house =  await House.find({})
-    // }
-
-    // else {
-    //     house =  await House.find({
-    //         houseAddress: assume.houseAddress,
-    //         // totalRoomNo: assume.totalRoomNo,
-    //         // size: assume.size,
-    //         // rentFee: assume.rentFee
-    //         })
-    // }
-
+   const house = await House.find({}).select('-houseImages');
+  
     try {
       res.status(201).send(house);
     } catch (error) {
@@ -113,7 +76,7 @@ module.exports = (app) => {
   //get house by id //DONE
   app.get("/api/house/:id", async (req, res) => {
     try {
-      const house = await House.findById(req.params.id);
+      const house = await House.findById(req.params.id).select('-houseImages');
       if (!house) return res.status(400).send("House Not Found");
 
       house.totalView++;
@@ -132,7 +95,7 @@ module.exports = (app) => {
       return res.status(400).send("Invalid Id");
 
     try {
-      const house = await House.find({ houseOwnerId: req.params.id });
+      const house = await House.find({ houseOwnerId: req.params.id }).select('-houseImages');
       if (!house) return res.status(400).send("House Not Found");
       res.status(201).send(house);
     } catch (e) {
@@ -180,10 +143,10 @@ module.exports = (app) => {
         for (let i in req.files) {
           const sh = await sharp(req.files[i].buffer).png().toBuffer();
           bufArr = [...bufArr, sh];
-          console.log("Buffer Array Inside ::: ", bufArr);
         }
 
         house.houseImages = bufArr;
+        house.houseImagesLength = bufArr.length;
         await house.save();
         res.send(house.houseImages[0]);
       } catch (e) {
@@ -226,9 +189,6 @@ module.exports = (app) => {
     app.post("/api/house/:houseId/removebookmark", auth, async (req, res) => {
       const house = await House.findById(req.params.houseId);
       if (!house) return res.status(400).send("House Not Found");
-
-      // house.bookmarkedBy = [...house.bookmarkedBy, req.user._id]
-      // req.user.bookmarkedHouse = [...req.user.bookmarkedHouse, req.params.houseId]
 
       house.bookmarkedBy = house.bookmarkedBy.filter(element=>element !== req.user._id.toString())
       req.user.bookmarkedHouse = req.user.bookmarkedHouse.filter(element=>element !== req.params.houseId)

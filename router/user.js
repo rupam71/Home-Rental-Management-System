@@ -52,8 +52,6 @@ module.exports = (app) => {
         return res.status(404).send("The User With Given ID Not Found");
       await user.save();
       res.send(user);
-      // await req.user.save()
-      // res.send(req.user)
     } catch (e) {
       res.status(400).send(Object.entries(e.errors)[0][1].message);
     }
@@ -146,7 +144,6 @@ module.exports = (app) => {
         const buffer = await sharp(req.file.buffer)
           .png()
           .toBuffer();
-          console.log("BUFFER ::: ",buffer)
         req.user.profilePicture = buffer;
         await req.user.save();
         

@@ -10,8 +10,6 @@ const Support = () => {
     if (!user) history.push('/')
 
     const support = useSelector(state => state.support)
-    console.log("Support ::: ", support)
-
 
     useEffect(() => {
         if (user) dispatch(getUsersAllSupportTicket(user._id))
@@ -34,12 +32,9 @@ const Support = () => {
     });
     const [createTicketBar, setcreateTicketBar] = useState(false);
 
-
-
     const handleSubmit = e => {
         e.preventDefault();
         dispatch(createSupportTicket(supportTicketState))
-        console.log("Support Ticket State ::: ", supportTicketState)
     }
 
     const createTicketRender = () => {
@@ -65,7 +60,7 @@ const Support = () => {
     }
 
     const ticketListRender = () => {
-        if (support.tickets.length === 0) return <tr><td colspan="2">No Ticket Created Yet</td></tr>
+        if (support.tickets.length === 0) return <tr><td colSpan="2">No Ticket Created Yet</td></tr>
         else return support.tickets.map(ticket => 
             <tr key={ticket._id}>
                 <td className='col-10'>{ticket.subject}</td>
@@ -77,9 +72,8 @@ const Support = () => {
     return (
         <div className="container">
             {createTicketRender()}
-
             <div className="support-ticket-list">
-                <table class="table table-bordered">
+                <table className="table table-bordered">
                     <thead>
                         <tr>
                             <th scope="col">Subject</th>

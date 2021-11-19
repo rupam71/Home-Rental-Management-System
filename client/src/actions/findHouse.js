@@ -5,6 +5,7 @@ import authenticateToken from './../utility/authenticateToken';
 import errorHandler from './../utility/errorHandler';
 
 export const houseList = (url) => async dispatch => {
+    authenticateToken()
     await axios.get(`/api/houses${url}`)
     .then(res => 
         dispatch({
@@ -90,7 +91,6 @@ export const availableHouse = () => dispatch => {
 
     export const uploadHouseImages = (value,id) => async dispatch => {
         authenticateToken()
-        console.log(value)
         await axios.post(`/api/house/${id}/upload`,value)
         // .then(res => 
         //     dispatch({
@@ -115,7 +115,6 @@ export const serchHouse = (query) => dispatch => {
 //CREATE BOOKMARK
 export const createBookmark = (houseId) => async dispatch => {
     authenticateToken()
-    console.log("houseId ::: ",houseId)
     await axios.post(`/api/house/${houseId}/addbookmark`)
     .then(res =>{
         const {house,user} = res.data
@@ -135,7 +134,6 @@ export const createBookmark = (houseId) => async dispatch => {
 //CREATE BOOKMARK
 export const removeBookmark = (houseId) => async dispatch => {
     authenticateToken()
-    console.log("houseId ::: ",houseId)
     await axios.post(`/api/house/${houseId}/removebookmark`)
     .then(res =>{
         const {house,user} = res.data

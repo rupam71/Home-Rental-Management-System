@@ -30,7 +30,8 @@ module.exports = (app) => {
     app.get('/api/rent/view/:id',  async(req,res)=>{
         const rent = await Rent.find({
             houseSeekerId: req.params.id
-        }) 
+        }).populate('houseId',['houseAddress','totalRoomNo','size','rentFee'])
+        .populate('houseOwnerId','name')
 
         try {
             res.status(200).send(rent)

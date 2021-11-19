@@ -24,7 +24,6 @@ const ShowHouse = () => {
     }
 
     const houseId = useParams().id
-    console.log('House Id::', houseId)
 
     useEffect(() => {
         async function fetchData() {
@@ -35,8 +34,6 @@ const ShowHouse = () => {
         // eslint-disable-next-line
     }, [houseId]);
 
-    console.log(houseData)
-    console.log("House Owner Id :: ", houseData[0].houseOwnerId)
     const [index, setIndex] = useState(0);
     const [bookmarkedAlready, setbookmarkedAlready] = useState(false);
     useEffect(() => {
@@ -46,6 +43,7 @@ const ShowHouse = () => {
                 setbookmarkedAlready(true)
             }
         })
+        // eslint-disable-next-line
     }, [bookmarkLength]);
     useEffect(() => {
         dispatch(userProfile(houseData[0].houseOwnerId))
@@ -53,10 +51,10 @@ const ShowHouse = () => {
     }, [houseData]);
 
     const [houseImagesLink] = useState([])
-    const length = houseData[0].houseImages.length
+    let length
+    if(houseData[0])  length = houseData[0].houseImagesLength
     useEffect(() => {
         async function fetchData() {
-            console.log("ASYNC ENTER ALREADY")
             if (length !== 0) {
                 for (let i = 0; i < length; i++) {
                     const blob = await axios.get(`/api/house/${houseData[0]._id}/picture/${i}`, { responseType: 'blob', contentType: "image/jpeg" }).then(r => r.data);
@@ -64,17 +62,16 @@ const ShowHouse = () => {
                     var newFile = await new File([blobFile], 'name.jpeg', { type: 'image/jpeg' })
                     const localImageUrl = window.URL.createObjectURL(newFile)
                     houseImagesLink.push(localImageUrl)
-                    console.log(localImageUrl)
                 }
             }
         }
         fetchData();
+        // eslint-disable-next-line
     }, [length]);
 
     const houseOwner = useSelector(state => state.user)
     
     const renderTooltip = (props) => (
-        console.log("props",props),
         <Tooltip id="button-tooltip" {...props}>
            {bookmarkedAlready ? 'Removed Bookmark' : 'Added Bookmark'}
         </Tooltip>
@@ -125,8 +122,8 @@ const ShowHouse = () => {
         };
         return ( <div style={{maxWidth:'1000px', margin:'auto'}}>
             <Carousel activeIndex={index} onSelect={handleSelect} style={{ color: 'black' }}>
-                {number && number.map((num, index) => {
-                    return <Carousel.Item interval={2000}>
+                {number && [...Array(number)].map((num, index) => {
+                    return <Carousel.Item key={index} interval={2000}>
                         <img
                             className="d-block w-100"
                             src={houseImagesLink[index]}
@@ -146,7 +143,7 @@ const ShowHouse = () => {
                     <h1 className='text-center'>Your House Here</h1>
                     {houseData.map(house => {
                         return <div key={house._id}>
-                            {HousePictureRender(house.houseImages, house._id)}
+                            {HousePictureRender(house.houseImagesLength, house._id)}
                             <div className="row my-4">
                                 <div className="col-8">
                                     <h2>{house.houseAddress}</h2>

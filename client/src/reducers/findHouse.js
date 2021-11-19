@@ -13,7 +13,7 @@ const initialilState = {
     totalRented:'',
     houseOwnerId:'',
     createdAt :'',
-    houseImages:''
+    houseImagesLength:''
 }
 
 export default function findHouse (state=[initialilState],action){
@@ -37,15 +37,8 @@ export default function findHouse (state=[initialilState],action){
             else if(action.payload.totalRoomNo) return house.totalRoomNo === action.payload.totalRoomNo && house.houseAddress.toLowerCase().indexOf(action.payload.houseAddress.toLowerCase()) !== -1
             else if(action.payload.size) return house.size <= action.payload.size && house.houseAddress.toLowerCase().indexOf(action.payload.houseAddress.toLowerCase()) !== -1
             else if(action.payload.rentFee) return house.rentFee <= action.payload.rentFee && house.houseAddress.toLowerCase().indexOf(action.payload.houseAddress.toLowerCase()) !== -1
-            else if(action.payload.houseAddress) return house.houseAddress.toLowerCase().indexOf(action.payload.houseAddress.toLowerCase()) !== -1
+            else return house.houseAddress.toLowerCase().indexOf(action.payload.houseAddress.toLowerCase()) !== -1
         })
-//         case 'SEARCH_HOUSE' :  return state.map(house=>{
-//             if(house.totalRoomNo !== action.payload.totalRoomNo){
-//                 return ;                                    
-//             } else {
-//                 return house;
-//             }
-// })
         default : return state;
     }
 }

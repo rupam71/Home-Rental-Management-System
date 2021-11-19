@@ -11,7 +11,6 @@ const Login = () => {
         email:'',
         password:''
     });
-    console.log("login :: ",login)
     const dispatch = useDispatch();
 
     const handleSubmit = e => {
@@ -24,7 +23,7 @@ const Login = () => {
         <div className='container mt-5'>
             <h1 className='text-center mb-5'> Login </h1>
             <form onSubmit={handleSubmit} className='mb-5'>
-                <div class="form-row">
+                <div className="form-row">
                     <Input width="full"
                         change={e=>setlogin({...login, email:e})}
                         type="text" label='Email' value={login.email}/>
@@ -32,7 +31,7 @@ const Login = () => {
                         change={e=>setlogin({...login, password:e})}
                         type="password" label='Password' value={login.password}/>
                 </div>
-                <button type="submit" class="btn btn-primary btn-lg my-3">Login</button>
+                <button type="submit" className="btn btn-primary btn-lg my-3">Login</button>
                 <br/>
                 <Link to="/signup" >No Active Account? Create Here...</Link>
             </form>

@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react';
 import HouseList from './HouseList';
 import { useSelector, useDispatch } from 'react-redux';
-import { availableHouse, houseList, serchHouse } from './../../actions/findHouse';
+import { houseList, serchHouse } from './../../actions/findHouse';
 
 const Input = (props) => {
     let inputWidth= 'col-md-6';
@@ -24,6 +24,7 @@ const Input = (props) => {
 const FindHouse = () => {
     const dispatch = useDispatch();
     const house = useSelector(state=>state.house)
+    const user = useSelector(state=>state.auth.user)
     console.log('HOUSELIST::: ',house)
 
     const [houses, sethouses] = useState({
@@ -34,16 +35,13 @@ const FindHouse = () => {
     });
 
     useEffect(() => {
-        dispatch(houseList('/available'))
+        if(!user)dispatch(houseList('/available'))
+        else dispatch(houseList('/available/authuser'))
         // eslint-disable-next-line
-    }, []);
+    }, [user]);
 
     const handleSubmit = async e => {
         e.preventDefault()
-        // if(!houses.totalRoomNo) await sethouses({ ...houses, totalRoomNo: Infinity })
-        // if(!houses.size) await sethouses({ ...houses, size: Infinity })
-        // if(!houses.rentFee) await sethouses({ ...houses, rentFee: Infinity })
-        console.log(houses)
         if(houses.houseAddress || houses.totalRoomNo || houses.size || houses.rentFee) {
             dispatch(serchHouse(houses)) 
             sethouses({

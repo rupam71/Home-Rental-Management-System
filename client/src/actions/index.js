@@ -46,7 +46,6 @@ export const loginForm = (value) => async dispatch => {
 export const getUserProfile = () => async dispatch => {
     authenticateToken()
 
-    console.log('getUserProfile')
     await axios.get('/api/users/me')
     .then(res => 
         dispatch({
@@ -115,7 +114,6 @@ export const deleteProfileForm = () => async dispatch => {
 
 export const uploadProfileImage = (value) => async dispatch => {
     authenticateToken()
-    await console.log("VALUE ::: ",value)
     await axios.post('/api/users/me/upload',value)
     .then(res => 
         dispatch({
@@ -139,7 +137,6 @@ export const profileImageUrl = (value) => dispatch => {
 
 
 export const getProfileUrl = (id) => async dispatch => {
-    console.log("QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ",id)
     await axios.get(`/api/users/${id}/avatar`)
     .then(res => 
         dispatch({

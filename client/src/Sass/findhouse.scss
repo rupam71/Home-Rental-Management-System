@@ -185,3 +185,13 @@
   box-shadow: 0 0 10px #3396d8;;
     transition: 0.7s ease-in-out;
 }
+
+.text-dark{
+  font-size: 1.2rem;
+  transition: 0.7s ease-in-out;
+  cursor: pointer;
+}
+.text-dark:hover{
+  font-size: 1.5rem;
+  transition: 0.7s ease-in-out;
+}

@@ -25,7 +25,6 @@ const EditProfile = () => {
         })
         // eslint-disable-next-line
     }, []);
-    console.log("editProfile :: ",editProfile)
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -37,7 +36,7 @@ const EditProfile = () => {
         <div className='container mt-5'>
             <h1 className='text-center mb-5'> Edit Profile </h1>
             <form onSubmit={handleSubmit} className='mb-5'>
-                <div class="form-row">
+                <div className="form-row">
                     <Input
                     change={e=>seteditProfile({...editProfile, name:e})}
                     type="name" label='Name' value={editProfile.name}/>
@@ -54,7 +53,7 @@ const EditProfile = () => {
                     change={e=>seteditProfile({...editProfile, address:e})}
                     type="text" label='Address' value={editProfile.address}/>
                 </div>
-                <button type="submit" class="btn btn-primary btn-lg my-3">Edit Profile</button>
+                <button type="submit" className="btn btn-primary btn-lg my-3">Edit Profile</button>
             </form>
         </div>
     );
