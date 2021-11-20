@@ -15,8 +15,7 @@ const CreateHouse = () => {
         size:'',
         rentFee:'',
         addittionalCharge:'',
-        description:'',
-        houseImages:[]
+        description:''
     });
 
     const house = useSelector(state => state.house[0])

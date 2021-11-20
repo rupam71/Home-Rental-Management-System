@@ -31,7 +31,7 @@ const Profile = () => {
         // eslint-disable-next-line
     }, [location.pathname,user]);
 
-    if (!url && user) imageSrc = `http://localhost:3000/api/users/${user._id}/avatar`
+    if (!url && user) imageSrc = `/api/users/${user._id}/avatar`
     else imageSrc = url
     const displayRender = () =>{
         if(houses && houses.length ===0) return {display:'none'}
