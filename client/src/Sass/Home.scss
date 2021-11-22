@@ -1,0 +1,118 @@
+.caroselImage{
+    object-fit:cover ; /* Do not scale the image */
+  object-position: center; /* Center the image within the element */
+//  width: 100%;
+  height: 600px;
+}
+
+.container-fluid{
+    margin-top: -1rem;
+    padding: 0;
+}
+
+.carousel-caption{
+    background-color: rgba(66, 67, 68, 0.473);
+    top: 50%;
+    object-fit:none ;
+    width: 100%;
+   // bottom: !important;
+    right: 0;
+    left: 0;
+    bottom: auto;
+   -ms-transform: translateY(-50%);
+   transform: translateY(-50%);
+    .carouselSmallHeading{
+        font-size: 1.5rem;
+        margin-bottom: 0;
+    }
+    .carouselHeading{
+        margin-top: 0;
+        font-size: 2rem;
+        font-family: "Red Hat Display", Helvetica, Arial, sans-serif;
+        
+    }
+    @media screen and (max-width: 300px) {
+        .carouselSmallText{
+            display:none;
+        }
+    }
+    @media screen and (min-width: 300px) {
+        .carouselSmallText{
+            margin: 0 auto;
+            width: 80%;
+            font-size: 1.5rem;
+            font-family: "Red Hat Display", Helvetica, Arial, sans-serif;
+        }
+    }
+}
+
+.carousel-control-prev,
+.carousel-control-next{
+    display: none;
+}
+
+.carousel-indicators{
+  button{
+      width: 2rem;
+      height: 2rem;
+      margin: 0 1rem 0 1rem;
+      background-color: rgba(0, 0, 255, 0.007);
+      border-radius: 50%;
+      border: 3px solid black;
+  }
+}
+
+.welocome{
+    background-color: rgb(246, 248, 250);
+    padding: 10rem 15%;
+  // font-family:"Red Hat Display", Helvetica, Arial, sans-serif;
+    .welocomeSmallHeading{
+        font-weight: 400;
+        font-size: 2rem;
+        line-height: 1.61111;
+        text-transform: uppercase;
+        margin-bottom: 0;
+    }
+    .welocomeHeading{
+        font-weight: bold;
+        font-size: 2rem;
+        margin-top: 0;
+    }
+    .welocomeText{
+        font-size: 1.3rem;
+        text-align: justify;
+    }
+    .colHeading{
+        font-weight: 700;
+        font-size: 18px;
+    }
+}
+
+.testimonials{
+    background-color: rgb(24, 53, 93);
+    padding: 10rem 0;
+  // font-family:"Red Hat Display", Helvetica, Arial, sans-serif;
+    .testimonialsSmallHeading{
+        font-weight: 400;
+        font-size: 2rem;
+        line-height: 1.61111;
+        text-transform: uppercase;
+        margin-bottom: 0;
+    }
+    .testimonialsHeading{
+        font-weight: bold;
+        font-size: 2rem;
+        margin-top: 0;
+    }
+    .testimonialsText{
+        font-size: 1.3rem;
+        text-align: justify;
+    }
+    // .colHeading{
+    //     font-weight: 700;
+    //     font-size: 18px;
+    // }
+}
+
+
+
