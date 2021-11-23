@@ -53,6 +53,10 @@ const FindHouse = () => {
         }
         else dispatch(houseList('/available'))
     }
+    const headlineRender = () => {
+        if (house.length !== 0) return 'All Available House'
+        else return `No House Found`
+    }
     return (
         <div>
             <div className="">
@@ -78,7 +82,7 @@ const FindHouse = () => {
                 </div>
 
                 <HouseList 
-                headline='All Available House' />   
+                headline={headlineRender()} />    
             </div>
         </div>
     );

@@ -18,6 +18,7 @@ import EditProfile from './component/User/EditProfile';
 import Support from './component/Support';
 import UploadImage from './component/User/UploadImage';
 import UploadHouseImage from './component/House/UploadHouseImage';
+import Footer from './component/Footer';
 
 const App = () => {
   const dispatch = useDispatch()
@@ -51,6 +52,7 @@ const App = () => {
               <Route path="/uploadprofileimage" exact component={UploadImage} />
               <Redirect to="/" />
             </Switch>
+            <Footer />
             </div>
           </div>
         </Router>

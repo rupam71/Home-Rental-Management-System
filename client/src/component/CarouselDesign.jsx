@@ -7,7 +7,7 @@ import thirdImage from './../Images/third.jpg'
 const CarouselDesign = () => {
     return (
         <div className="container-fluid">
-            <Carousel interval={20000} >
+            <Carousel interval={40000000} >
                 <Carousel.Item>
                     <img
                         className="d-block w-100 caroselImage"

@@ -5,6 +5,7 @@ import { userProfile, houseListById } from './../../actions/findHouse';
 import { Link } from 'react-router-dom';
 import { deleteProfileForm } from '../../actions';
 import RentedHouse from '../Rent.jsx/RentedHouse';
+import HouseList from '../House/HouseList';
 
 const Profile = () => {
     const id = useParams().id
@@ -96,7 +97,7 @@ const Profile = () => {
             {ownProfileRender()}
         </div>
         
-        <div className='house-list-container p-5'>
+        {/* <div className='house-list-container p-5'>
             <h1 className="text-center pt-5">{headline(user.name)}</h1>
             <div className="table-responsive-lg" style={displayRender()}>
                 <table className="table table-bordered bg-light">
@@ -123,7 +124,10 @@ const Profile = () => {
                     </tbody>
                 </table>
             </div>
-        </div>
+        </div> */}
+
+        <HouseList 
+        headline={headline(user.name)} />
 
         <RentedHouse
             userId={user._id}

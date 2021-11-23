@@ -25,43 +25,35 @@ const RentedHouse = ({userId,userName}) => {
     const displayRender = () =>{
         if(rents.length ===0) return {display:'none'}
     }
-    return ( 
-        <div className="container my-5">
-            <h1 className="text-center">{headline()}</h1>
-            
-            <div className="table-responsive" style={displayRender()}>
-                <table className="table table-bordered" style={{backgroundColor:'#F0F0F0'}}>
-                    <thead>
-                        <tr className='text-center'>
-                            <th scope="col">House Address</th>
-                            <th scope="col">Room</th>
-                            <th scope="col">Area Sq/M</th>
-                            <th scope="col">Rent Fee</th>
-                            <th scope="col">House Owner</th>
-                            <th scope="col">Rented At</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {rents && rents.map(rent=>{
-                            return <tr key={rent._id} className='text-center' style={{cursor:'pointer'}}>
-                                    <th scope="row" onClick={()=>history.push(`/house/${rent.houseId._id}`)}><Link to={`/house/${rent.houseId._id}`} className='text-dark'>{rent.houseId.houseAddress}</Link></th>
-                                    <td onClick={()=>history.push(`/house/${rent.houseId._id}`)}><Link to={`/house/${rent.houseId._id}`} className='text-dark'>{rent.houseId.totalRoomNo}</Link></td>
-                                    <td onClick={()=>history.push(`/house/${rent.houseId._id}`)}><Link to={`/house/${rent.houseId._id}`} className='text-dark'>{rent.houseId.size}</Link></td>
-                                    <td onClick={()=>history.push(`/house/${rent.houseId._id}`)}><Link to={`/house/${rent.houseId._id}`} className='text-dark'>{rent.houseId.rentFee}</Link></td>
-                                    <td onClick={()=>history.push(`/user/${rent.houseOwnerId._id}`)}>
-                                        <Link to={`/user/${rent.houseOwnerId._id}`} className='text-dark'>
-                                            <button className="btn btn-primary btn-sm container-fluid">{rent.houseOwnerId.name}</button>
-                                        </Link>
-                                    </td>
-                                    <td onClick={()=>history.push(`/house/${rent.houseId._id}`)}><Link to={`/house/${rent.houseId._id}`} className='text-dark'>{rent.createdAt.slice(0,10)}</Link></td>
-                                </tr>
-                            
-                        })}
-                    </tbody>
-                </table>
+    return (
+        <div className='house-list-container'>
+            <h1 className="text-center pt-5">{headline()}</h1>
+            <div className="row">
+                {rents.map(rent => {
+                    return <div key={rent._id} className='house-list-card col-md-6 col-lg-4 col-xl-4'>
+                        <div className="card" onClick={() => history.push(`/house/${rent.houseId._id}`)}>
+                            <img className="card-img-top mx-auto" src={`/api/house/${rent.houseId._id}/picture/0`} alt="Card Avatar" style={{ width: '100%', margin: '0 0' }} />
+                            <div className='cardFee'>Rented</div>
+                            <div className="card-body">
+                                <h3 className="card-title">{rent.houseId.houseAddress}</h3>
+                                <div className="row">
+                                    <div className="col-6">
+                                        <p>{rent.houseId.totalRoomNo} Room</p>
+                                        <p>{rent.houseId.size} Sq/M</p>
+                                    </div>
+                                    <div className="col-6">
+                                        <p> Rent at {rent.createdAt.slice(0,10)}</p>
+                                        <p> Rent Fee {rent.houseId.rentFee}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                })}
+
             </div>
         </div>
-     );
+    );
 }
  
 export default RentedHouse;

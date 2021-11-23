@@ -1,5 +1,6 @@
 import React from 'react';
 import CarouselDesign from './CarouselDesign';
+import Newslatter from './Newslatter';
 import Testimonials from './Testimonials';
 
 const Home = () => {
@@ -56,6 +57,7 @@ const Home = () => {
                 </div>
             </div>
             <Testimonials/>
+            <Newslatter/>
         </div>
     );
 }

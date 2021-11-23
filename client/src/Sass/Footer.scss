@@ -1,0 +1,37 @@
+.footer{
+    position: relative;
+    width: 100%;
+    padding: 4rem 10%;
+    background-color: #F8F8DF;
+    z-index: 1;
+    .footerText{
+        box-sizing: border-box;
+        color: rgb(140, 140, 140);
+        font-family: "Red Hat Display", Helvetica, Arial, sans-serif;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 26px;
+        text-align: justify;
+    }
+    .footerText.mt-5{
+        font-family: "Red Hat Display", Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+    }
+    .footerIcon{
+        color: #e4485a;
+        font-size: 1.4rem;
+    }
+    .footerText.mail:hover{
+        color: rgb(3, 1, 1);
+        font-size: 22px;
+    }
+    .footerSocialIcon{
+        color: #c0594c;
+        font-size: 2rem;
+        margin-top: 1rem;
+    }
+    .footerSocialIcon:hover{
+        color: #312826;
+    }
+}
