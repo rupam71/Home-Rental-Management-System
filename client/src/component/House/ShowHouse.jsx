@@ -11,12 +11,14 @@ import { createRent } from '../../actions/rent';
 import { Carousel, OverlayTrigger, Tooltip } from 'react-bootstrap'
 
 import axios from 'axios';
+import findDay from './../../utility/findDay';
 
 const ShowHouse = () => {
     const dispatch = useDispatch()
     const houseData = useSelector(state => state.house)
     const user = useSelector(state => state.auth.user)
 
+    console.log("houseData ::: ",houseData)
     let userId,bookmarkLength
     if (user) {
         userId = user._id 
@@ -34,23 +36,17 @@ const ShowHouse = () => {
         // eslint-disable-next-line
     }, [houseId]);
 
-    const [index, setIndex] = useState(0);
-    const [bookmarkedAlready, setbookmarkedAlready] = useState(false);
-    useEffect(() => {
-        setbookmarkedAlready(false)
-        if(user) user.bookmarkedHouse.forEach(element=>{
-            if(element===houseId) {
-                setbookmarkedAlready(true)
-            }
-        })
-        // eslint-disable-next-line
-    }, [bookmarkLength]);
+    
+    // eslint-disable-next-line
+    const [reRender,setreRender] = useState(null);
     useEffect(() => {
         dispatch(userProfile(houseData[0].houseOwnerId))
+        setTimeout(()=>{setreRender({})},500)
         // eslint-disable-next-line
     }, [houseData]);
 
-    const [houseImagesLink] = useState([])
+    const [houseImagesLink,sethouseImagesLink] = useState([])
+    console.log('houseImagesLink',houseImagesLink)
     let length
     if(houseData[0])  length = houseData[0].houseImagesLength
     useEffect(() => {
@@ -68,6 +64,41 @@ const ShowHouse = () => {
         fetchData();
         // eslint-disable-next-line
     }, [length]);
+
+
+
+    const [index, setIndex] = useState(0);
+    const [gallaryIndex, setgallaryIndex] = useState(0);
+    const handlePrevios = () => {
+        if(gallaryIndex-1 !== -1) setgallaryIndex(gallaryIndex-1)
+    }
+    const handleNext = () => {
+        if(length>4 && gallaryIndex+1 !== length-3) setgallaryIndex(gallaryIndex+1)
+    }
+    
+    useEffect(() => {
+        if(length<=4) setgallaryIndex(0)
+        else if(index>length-4) setgallaryIndex(length-4)
+        else setgallaryIndex(index)
+    }, [index,length]);
+    const [bookmarkedAlready, setbookmarkedAlready] = useState(false);
+    useEffect(() => {
+        setbookmarkedAlready(false)
+        if(user) user.bookmarkedHouse.forEach(element=>{
+            if(element===houseId) {
+                setbookmarkedAlready(true)
+            }
+        })
+        // eslint-disable-next-line
+    }, [bookmarkLength]);
+
+    console.log('LENGTH ::: ',length)
+    console.log('INDEX ::: ',index)
+    console.log('HOUSEIMAGELINK ::: ',houseImagesLink.length)
+    console.log('GALLARYINDEX ::: ',gallaryIndex)
+
+
+
 
     const houseOwner = useSelector(state => state.user)
     
@@ -94,7 +125,7 @@ const ShowHouse = () => {
     const rentButtonRender = () => {
         if (user && houseData[0].houseOwnerId !== userId && houseData[0].houseStatus === 'available') return <div className="dropdown d-flex justify-content-end mt-2 mx-4">
         <Link onClick={() => dispatch(createRent({ houseId }))}
-            className="btn rent-button container-fluid btn-lg"
+            className="btn btn-primary btn-block"
         >Rent This House</Link>
         <br/>
         {bookmarkRender()}
@@ -120,14 +151,16 @@ const ShowHouse = () => {
         </div>
         else return <div></div>
     }
-    const HousePictureRender = (number, id) => {
+    const HousePictureRender = (number) => {
+        console.log(number, " ::: number")
         const handleSelect = (selectedIndex, e) => {
+            console.log("setIndex(selectedIndex)",selectedIndex)
             setIndex(selectedIndex);
         };
-        return ( <div style={{maxWidth:'1000px', margin:'auto'}}>
-            <Carousel activeIndex={index} onSelect={handleSelect} style={{ color: 'black' }}>
+        return ( <div className='houseCarousel'>
+            <Carousel activeIndex={index} onSelect={handleSelect} >
                 {number && [...Array(number)].map((num, index) => {
-                    return <Carousel.Item key={index} interval={2000}>
+                    return <Carousel.Item key={index} interval={1000000}>
                         <img
                             className="d-block w-100"
                             src={houseImagesLink[index]}
@@ -136,85 +169,190 @@ const ShowHouse = () => {
                     </Carousel.Item>
                 })}
             </Carousel>
+            <div className="galary">
+                <div className="row">
+                    <div className="col-1">
+                        <i class="fas fa-chevron-circle-left nextPrevious" onClick={handlePrevios}></i>
+                    </div>
+                    <div className="col-10">
+                        <div className="row">
+                            {number && [...Array(length>3?4:length)].map((num, index) =>{
+                                const picIndex = gallaryIndex+index
+                                console.log('picIndex ::: ',picIndex)
+                                return <div className="col-3" onClick={()=>setIndex(picIndex)} style={{margin:'0 auto'}}>
+                                    <img
+                                        className="d-block w-100"
+                                        src={houseImagesLink[picIndex]}
+                                        alt={`${picIndex + 1} Slide`}
+                                    />
+                                </div>
+                            })}            
+                        </div>
+                    </div>
+                    <div className="col-1">
+                        <div style={{width:'10px',height:'100%',margin:'0 auto'}}>
+                            <i class="fas fa-chevron-circle-right nextPrevious" onClick={handleNext}></i>
+                        </div>
+                        
+                    </div>
+                </div>
             </div>
+        </div>
         );
     }
+    const HouseProfileList = ({property}) => {
+        return <li>
+            <i class="fas fa-check"></i>
+            <p>{property}</p>
+        </li>
+    }
+    const handleAvailibility = status => {
+        if(status === 'available') return 'Available For Rent'
+        else return 'This House Already Rented'
+    }
+    // return (
+    //     <div className='container-fluid showHouse'>
+    //         <div className="row">
+    //             <div className="col-md-8 col-lg-9 house-info">
+    //                 <h1 className='text-center'>Your House Here</h1>
+    //                 {houseData.map(house => {
+    //                     return <div key={house._id}>
+    //                         {HousePictureRender(house.houseImagesLength, house._id)}
+    //                         <div className="row my-4">
+    //                             <div className="col-10">
+    //                                 <h2>{house.houseAddress}</h2>
+    //                                 <h4 className="card-text">{house.description}</h4>
+    //                             </div>
+    //                             <div className="col-2">
+    //                                 {dropdownRender()}
+    //                             </div>
+    //                             {rentButtonRender()}
+    //                         </div>
 
-    return (
-        <div className='container-fluid showHouse'>
-            <div className="row">
-                <div className="col-md-8 col-lg-9 house-info">
-                    <h1 className='text-center'>Your House Here</h1>
-                    {houseData.map(house => {
-                        return <div key={house._id}>
-                            {HousePictureRender(house.houseImagesLength, house._id)}
-                            <div className="row my-4">
-                                <div className="col-10">
-                                    <h2>{house.houseAddress}</h2>
-                                    <h4 className="card-text">{house.description}</h4>
-                                </div>
-                                <div className="col-2">
-                                    {dropdownRender()}
-                                </div>
-                                {rentButtonRender()}
-                            </div>
-
-                            <table className="table table-striped table-hover">
-                                <tbody>
-                                    <tr>
-                                        <td className='text-center col-6'>{house.totalRoomNo} Room</td>
-                                        <td className='text-center col-6'>{house.bedRoom} BedRoom</td>
-                                    </tr>
-                                    <tr>
-                                        <td className='text-center col-6'>{house.totalToilet} Toilet</td>
-                                        <td className='text-center col-6'>{house.totalbalcony} Balcony</td>
-                                    </tr>
-                                    <tr>
-                                        <td className='text-center col-6'>{house.size} Area Sq/M</td>
-                                        <td className='text-center col-6'>{house.rentFee} Per Month</td>
-                                    </tr>
-                                    <tr>
-                                        <td className='text-center col-6'>{house.addittionalCharge} Per Month</td>
-                                        <td className='text-center col-6'>{house.totalView} Time Viewd</td>
-                                    </tr>
-                                    <tr>
-                                        <td className='text-center col-6'>{house.totalRented} Time Rented</td>
-                                        <td className='text-center col-6'>Create At {house.createdAt.slice(0, 9)}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+    //                         <table className="table table-striped table-hover">
+    //                             <tbody>
+    //                                 <tr>
+    //                                     <td className='text-center col-6'></td>
+    //                                     <td className='text-center col-6'></td>
+    //                                 </tr>
+    //                                 <tr>
+    //                                     <td className='text-center col-6'></td>
+    //                                     <td className='text-center col-6'></td>
+    //                                 </tr>
+    //                                 <tr>
+    //                                     <td className='text-center col-6'></td>
+    //                                     <td className='text-center col-6'></td>
+    //                                 </tr>
+    //                                 <tr>
+    //                                     <td className='text-center col-6'>{house.addittionalCharge} Per Month</td>
+    //                                     <td className='text-center col-6'></td>
+    //                                 </tr>
+    //                                 <tr>
+    //                                     <td className='text-center col-6'></td>
+    //                                     <td className='text-center col-6'></td>
+    //                                 </tr>
+    //                             </tbody>
+    //                         </table>
                             
-                        </div>
-                    })}
+    //                     </div>
+    //                 })}
 
-                    <ShowReview
-                        houseId={houseId}
-                        userId={userId}
-                        houseOwnerId={houseData[0].houseOwnerId}
-                    />
+    //                 <ShowReview
+    //                     houseId={houseId}
+    //                     userId={userId}
+    //                     houseOwnerId={houseData[0].houseOwnerId}
+    //                 />
 
-                    {!user ? '' : <CreateReview
-                        houseId={houseId}
-                    />}
+    //                 {!user ? '' : <CreateReview
+    //                     houseId={houseId}
+    //                 />}
 
+    //             </div>
+    //             <div className="col-md-4 col-lg-3 houseowner-info">
+    //                 <h1 className='text-center'>House Owner</h1>
+    //                 {houseOwner.map(user => {
+    //                     return <div key={user._id}>
+    //                         <h2 className="">{user.name}</h2>
+    //                         <h3 className="">{user.email}</h3>
+    //                         <h3 className="">Phone : {user.phoneNumber}</h3>
+    //                         <h3 className="">Address : {user.address}</h3>
+    //                         <h3 className="">Gender : {user.gender}</h3>
+    //                         <h3 className="">Date Of Birth : {user.dateOfBirth}</h3>
+    //                         <div className='text-center my-5'>
+    //                             <Link to={`/user/${user._id}`} className='btn btn-primary btn-lg'>
+    //                                 View Profile
+    //                             </Link>
+    //                         </div>
+    //                     </div>
+    //                 })}
+    //             </div>
+    //         </div>
+    //     </div>
+    // );
+    return(
+        <div className="container showHouse">
+            <div className="row row-30">
+                <div className="col-md-6 col-xl-7">
+                    <div className="slick-gallery">
+                        {HousePictureRender(houseData[0].houseImagesLength)}
+
+                        <ShowReview houseId={houseId} userId={userId}
+                            houseOwnerId={houseData[0].houseOwnerId}
+                        />
+                        {!user ? '' : <CreateReview houseId={houseId} />}
+                    </div>
                 </div>
-                <div className="col-md-4 col-lg-3 houseowner-info">
-                    <h1 className='text-center'>House Owner</h1>
-                    {houseOwner.map(user => {
-                        return <div key={user._id}>
-                            <h2 className="">{user.name}</h2>
-                            <h3 className="">{user.email}</h3>
-                            <h3 className="">Phone : {user.phoneNumber}</h3>
-                            <h3 className="">Address : {user.address}</h3>
-                            <h3 className="">Gender : {user.gender}</h3>
-                            <h3 className="">Date Of Birth : {user.dateOfBirth}</h3>
-                            <div className='text-center my-5'>
-                                <Link to={`/user/${user._id}`} className='btn btn-primary btn-lg'>
-                                    View Profile
-                                </Link>
+                <div className="col-md-6 col-xl-5">
+                    <div className="houseInfo">
+                        <div className="row">
+                            <div className="col-10">
+                                <h4>{houseData[0].houseAddress}</h4>
+                            </div>
+                            <div className="col-2">
+                                {dropdownRender()}
                             </div>
                         </div>
-                    })}
+                        <p>{houseData[0].description}</p>
+                        <h5>Features</h5>
+                        <div className="row">
+                            <div className="col-6">
+                                <ul>
+                                    <HouseProfileList 
+                                    property={`${houseData[0].totalRoomNo} room`} />
+                                    <HouseProfileList 
+                                    property={`${houseData[0].totalToilet} Toilet`} />
+                                    <HouseProfileList 
+                                    property={`${houseData[0].size} Area Sq/M`} />
+                                    <HouseProfileList 
+                                    property={`${houseData[0].totalView} Time Viewd`} />
+                                    <HouseProfileList 
+                                    property={handleAvailibility(houseData[0].houseStatus)} />
+                                </ul>
+                            </div>
+                            <div className="col-6">
+                                <ul>
+                                    <HouseProfileList 
+                                    property={`${houseData[0].bedRoom} BedRoom`} />
+                                    <HouseProfileList 
+                                    property={`${houseData[0].totalbalcony} Balcony`} />
+                                    <HouseProfileList 
+                                    property={`${houseData[0].totalRented} Time Rented`} />
+                                    <HouseProfileList 
+                                    property={`${houseData[0].bookmarkedBy.length} User Bookmarked`} />
+                                    <HouseProfileList 
+                                    property={`House created at ${findDay(houseData[0].createdAt.slice(0, 10))}`} />
+                                </ul>
+                            </div>
+                        </div>
+                        <h5>Rent Fee</h5>
+                        <div className="price">
+                            <span className="signPrice">Tk</span>
+                            <span className="mainPrice">{houseData[0].rentFee}</span>
+                            <span className="decPrice">/per month</span>
+                        </div>
+                        <h5>+ Additional <span className="addPrice">{houseData[0].addittionalCharge}</span>/per month</h5>
+                        {rentButtonRender()}
+                    </div>
                 </div>
             </div>
         </div>

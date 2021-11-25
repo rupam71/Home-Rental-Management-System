@@ -13,7 +13,8 @@ const initialilState = {
     totalRented:'',
     houseOwnerId:'',
     createdAt :'',
-    houseImagesLength:0
+    houseImagesLength:0,
+    bookmarkedBy:[]
 }
 
 export default function findHouse (state=[initialilState],action){
@@ -27,7 +28,8 @@ export default function findHouse (state=[initialilState],action){
                                 } else {
                                     return house;
                                 }
-        })
+        }) 
+        case 'EMPTYHOUSE' : return [initialilState];
         case 'AVAILABLE_HOUSE' :  return state.filter(house=> house.houseStatus !== 'rented')
         case 'SEARCH_HOUSE' :  return state.filter(house=>{
             if(action.payload.totalRoomNo && action.payload.rentFee && action.payload.size) return house.totalRoomNo === action.payload.totalRoomNo && house.houseAddress.toLowerCase().indexOf(action.payload.houseAddress.toLowerCase()) !== -1 && house.size <= action.payload.size && house.rentFee <= action.payload.rentFee          

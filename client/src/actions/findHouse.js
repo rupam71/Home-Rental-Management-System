@@ -27,6 +27,12 @@ export const showHouse = (id) => async dispatch => {
     .catch(err=>console.log("Error ::: ",err))
 }
 
+export const emptyHouse = () => dispatch => {
+    dispatch({
+        type: 'EMPTYHOUSE'
+    })
+}
+
 export const userProfile = (id) => async dispatch => {
     await axios.get(`/api/users/${id}`)
     .then(res => 

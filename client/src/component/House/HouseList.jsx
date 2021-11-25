@@ -11,14 +11,9 @@ const HouseList = ({ headline }) => {
         else return 'Rented'
     }
 
-    const headlineRender = () => {
-        if (houses.length !== 0) return `${headline}`
-        else return `No House Found`
-    }
-
     return (
         <div className='house-list-container'>
-            <h1 className="text-center pt-5">{headlineRender()}</h1>
+            <h1 className="text-center pt-5">{headline}</h1>
             <div className="row">
                 {houses.map(house => {
                     return <div key={house._id} className='house-list-card col-md-6 col-lg-4 col-xl-4'>

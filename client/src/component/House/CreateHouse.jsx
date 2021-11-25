@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react';
 import Input from './../Input';
 import { useDispatch, useSelector } from 'react-redux';
-import { createHouseForm, editHouseForm, showHouse } from '../../actions/findHouse';
+import { createHouseForm, editHouseForm, showHouse, emptyHouse} from '../../actions/findHouse';
 import { useParams } from 'react-router';
 
 const CreateHouse = () => {
@@ -34,6 +34,9 @@ const CreateHouse = () => {
                 addittionalCharge: house.addittionalCharge ,
                 description: house.description 
             })
+        }
+        else {
+            dispatch(emptyHouse())
         }
         // eslint-disable-next-line
     }, [id]);
