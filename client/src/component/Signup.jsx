@@ -32,7 +32,7 @@ const Signup = () => {
     }
     return (
         <div className='container mt-5'>
-            <h1 className='text-center mb-5'> Signup </h1>
+            <h2 className='text-center mb-5'> Signup </h2>
             <form onSubmit={handleSubmit} className='mb-5'>
                 <div className="form-row">
                     <Input
@@ -60,7 +60,7 @@ const Signup = () => {
                     change={e=>setsignup({...signup, address:e})}
                     type="text" label='Address' value={signup.address}/>
                 </div>
-                <button type="submit" className="btn btn-primary btn-lg my-3">Sign in</button>
+                <button type="submit" className="btn btn-primary btn-block">Sign in</button>
                 <br/>
                 <Link to="/login" >Already Have An Account? Login Here...</Link>
             </form>

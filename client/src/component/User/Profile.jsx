@@ -54,23 +54,23 @@ const Profile = () => {
         else return <div className="row m-3">
             <div className="col-md-3 col-sm-6 p-2">
                 <div className='text-center my-2'>
-                    <Link to='/createhouse' className='btn btn-primary btn-lg container-fluid'>Create Your House</Link>
+                    <Link to='/createhouse' className='btn btn-primary btn-block'>Create Your House</Link>
                 </div>
             </div>
             <div className="col-md-3 col-sm-6 p-2">
                 <div className='text-center my-2'>
-                    <Link to='/editprofile' className='btn btn-primary btn-lg container-fluid'>Edit Profile</Link>
+                    <Link to='/editprofile' className='btn btn-primary btn-block'>Edit Profile</Link>
                 </div>
             </div>
             <div className="col-md-3 col-sm-6 p-2">
                 <div className='text-center my-2'>
-                    <Link to='/uploadprofileimage' className='btn btn-primary btn-lg container-fluid'>Profile Picture</Link>
+                    <Link to='/uploadprofileimage' className='btn btn-primary btn-block'>Profile Picture</Link>
                 </div>
             </div>
             <div className="col-md-3 col-sm-6 p-2">
                 <div className='text-center my-2'>
                     <Link to='#' onClick={() => dispatch(deleteProfileForm())}
-                        className='btn btn-primary btn-lg container-fluid'>Delete Account</Link>
+                        className='btn btn-primary btn-block'>Delete Account</Link>
                 </div>
             </div>
         </div>
@@ -82,16 +82,16 @@ const Profile = () => {
         <div className='container profile-info'>
             <div className="row">
                 <div className="col-md-6 text-center mb-3">
-                    <h3>Name : {user.name}</h3>
-                    <h3>Address : {user.address}</h3>
-                    <h3>Email : {user.email}</h3>
-                    <h3>Phone Number : {user.phoneNumber}</h3>
+                    <h5>Name : {user.name}</h5>
+                    <h5>Address : {user.address}</h5>
+                    <h5>Email : {user.email}</h5>
+                    <h5>Phone Number : {user.phoneNumber}</h5>
                 </div>
                 <div className="col-md-6 text-center">
-                    <h3>Date Of Birth : {user.dateOfBirth}</h3>
-                    <h3>Gender : {user.gender}</h3>
-                    <h3>User Type : {user.userType}</h3>
-                    <h3>Account Created : {user.createdAt.slice(0, 9)}</h3>
+                    <h5>Date Of Birth : {user.dateOfBirth}</h5>
+                    <h5>Gender : {user.gender}</h5>
+                    <h5>User Type : {user.userType}</h5>
+                    <h5>Account Created : {user.createdAt.slice(0, 9)}</h5>
                 </div>
             </div>
             {ownProfileRender()}

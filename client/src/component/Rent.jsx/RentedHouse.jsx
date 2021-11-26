@@ -27,7 +27,7 @@ const RentedHouse = ({userId,userName}) => {
     }
     return (
         <div className='house-list-container'>
-            <h1 className="text-center pt-5">{headline()}</h1>
+            <h2 className="text-center pt-5">{headline()}</h2>
             <div className="row">
                 {rents.map(rent => {
                     return <div key={rent._id} className='house-list-card col-md-6 col-lg-4 col-xl-4'>

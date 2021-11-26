@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import StarRatings from '../../../node_modules/react-star-ratings';
 import { Link } from 'react-router-dom';
 import { getReviewById, deleteReview, deleteReviewByHO } from './../../actions/review';
+import findDay from '../../utility/findDay';
 
 const ShowReview = ({ userId, houseId, houseOwnerId }) => {
     const dispatch = useDispatch()
@@ -34,28 +35,27 @@ const ShowReview = ({ userId, houseId, houseOwnerId }) => {
 
     if (!reviewList) return <div></div>
     else return reviewList.map(review => {
-        return <div className='mt-2 review-box' key={review._id}>
+        return <div className='review-box mb-0' key={review._id}>
             <div className="row">
                 <div className="col-9">
-                    <h3>{review.reviewerName}</h3>
+                    <h4>{review.reviewerName}</h4>
 
                     <StarRatings
                         rating={review.ratings}
-                        starRatedColor="blue"
+                        starRatedColor="#d84c4d"
                         numberOfStars={5}
                         name='ratings'
-                        starDimension='30px'
-                        starSpacing='5px'
+                        starDimension='18px'
+                        starSpacing='3px'
                     />
                 </div>
                 <div className="col-3">
-                    <p>{review.createdAt.slice(0, 10)}</p>
                     {dropdownRender(review.reviewerId, review._id)}
                 </div>
             </div>
 
-
-            <h3 className='description'>{review.review}</h3>
+            <p className='description'>{review.review}</p>
+            <p style={{color:'#d84c4d',paddingBottom:'10px'}}>{findDay(review.createdAt.slice(0, 10))}</p>
         </div>
     }
     );

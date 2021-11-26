@@ -34,7 +34,7 @@ const EditProfile = () => {
 
     return (
         <div className='container mt-5'>
-            <h1 className='text-center mb-5'> Edit Profile </h1>
+            <h2 className='text-center mb-5'> Edit Profile </h2>
             <form onSubmit={handleSubmit} className='mb-5'>
                 <div className="form-row">
                     <Input
@@ -53,7 +53,7 @@ const EditProfile = () => {
                     change={e=>seteditProfile({...editProfile, address:e})}
                     type="text" label='Address' value={editProfile.address}/>
                 </div>
-                <button type="submit" className="btn btn-primary btn-lg my-3">Edit Profile</button>
+                <button type="submit" className="btn btn-primary btn-block">Edit Profile</button>
             </form>
         </div>
     );

@@ -61,7 +61,7 @@ const FindHouse = () => {
         <div>
             <div className="">
                 <div className="searchHouseContainer container">
-                    <h1>Find Your House</h1>
+                    <h2 className='text-center'>Find Your House</h2>
                     <form onSubmit={handleSubmit} className='mb-5'>
                         <div className="form-row">
                             <Input

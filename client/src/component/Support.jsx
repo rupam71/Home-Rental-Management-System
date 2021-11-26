@@ -38,10 +38,10 @@ const Support = () => {
     }
 
     const createTicketRender = () => {
-        if (!createTicketBar) return <button onClick={() => setcreateTicketBar(true)} className="btn btn-primary btn-lg my-5 container-fluid" >Create Your Ticket</button>
+        if (!createTicketBar) return <button onClick={() => setcreateTicketBar(true)} className="btn btn-primary btn-block" >Create Your Ticket</button>
         else return <div>
             <div className="create-support-ticket">
-                <h1 className='text-center pt-2'>Create Your Support Ticket Here</h1>
+                <h2 className='text-center pt-2'>Create Your Support Ticket Here</h2>
                 <form onSubmit={handleSubmit} className='mt-5'>
                     <div className="form-row">
                         <Input width="full"
@@ -51,7 +51,7 @@ const Support = () => {
                             change={e => setsupportTicketState({ ...supportTicketState, description: e })}
                             type="text" label='Description' value={supportTicketState.description} />
                     </div>
-                    <button type="submit" className="btn btn-primary btn-lg my-3">Create Your Ticket</button>
+                    <button type="submit" className="btn btn-primary btn-block">Create Your Ticket</button>
                     <br />
                 </form>
             </div>

@@ -15,30 +15,18 @@
   padding: 5rem 0 0 0;
   h1 {
     text-align: center;
-    font-size: 30px;
+    font-size: 34px;
+    line-height: 1.2;
     font-family: "Red Hat Display", Helvetica, Arial, sans-serif;
   }
   .form-row {
-    input {
-      width: 70%;
-      height: 3rem;
-      margin: 0 auto;
-    }
-    @media screen and (max-width: 767px) {
-      label {
-        margin: -1rem 6rem;
+    width: 80%;
+    margin: 0 auto;
+    label {
+       font-size: 15px;
+       height: auto;
+       color: #5f5c5c;
       }
-    }
-    @media screen and (max-width: 991px) and (min-width: 768px) {
-      label {
-        margin: -1rem 4rem;
-      }
-    }
-    @media screen and (min-width: 992px) {
-      label {
-        margin: -1rem 6rem;
-      }
-    }
   }
 }
 .findbutton {
@@ -60,11 +48,6 @@
   width: 100%;
   margin: 0 auto;
   background-color: rgb(236, 237, 240);
-  h1{
-    text-align: center;
-    font-size: 30px;
-    font-family: "Red Hat Display", Helvetica, Arial, sans-serif;
-  }
 }
 
 .house-list-card {
@@ -119,7 +102,8 @@
 
 .showHouse{
   margin: 4rem auto;
-  padding: 4rem 0;
+  margin-bottom: 0;
+  padding: 4rem 0 0 0;
   .slick-gallery{
     width: 100%;
     padding: .5rem;
@@ -138,6 +122,7 @@
         padding: 0.7rem;
         .row{
           margin: 0;
+          align-items: center;
         }
         .col-1,.col-10,.col-3{
           padding-right: 4px;
@@ -146,14 +131,25 @@
         .nextPrevious{
           color: #d85151;
           font-size: 1.9rem;
-          margin: 13px 0 0 0 ;
         }
       }
     }
   }
 }
 
+@media screen and (min-width: 768px) {
+  .houseInfoSmallScreen{
+    display: none;
+  }
+}
+@media screen and (max-width: 767px) {
+  .houseInfoBigScreen{
+   display: none;
+  }
+}
+
 .houseInfo{
+  padding: 1rem;
   h4{
     box-sizing: border-box;
     color: rgb(0, 0, 0);
@@ -255,19 +251,29 @@
     font-family: "Red Hat Display", Helvetica, Arial, sans-serif;
     font-weight: 900;
     line-height: 43.2px;
-  }
-  .btn.btn-primary.btn-block{
-    color: #fff;
-    background-color: #d84c4d;
-    border-color: #d84c4d;
-    border-radius: 0;
-    margin-right: 5px;
-  }
+  } 
   .rent-button {
     background-color: #d85151;
     color: #ffffff;
     box-shadow: 0 0 10px #519cb8;;
   }
+}
+
+.btn.btn-primary.btn-block{
+  color: #fff;
+  background-color: #d84c4d;
+  border-color: #d84c4d;
+  border-radius: 0;
+  margin-right: 5px;
+  font-size: 16px;
+  font-weight: 600;
+  transition: .5s ease-in-out;
+}
+
+.btn.btn-primary.btn-block:hover{
+  background-color: #353232;
+  border-color: #353232;
+  transition: .5s ease-in-out;
 }
 
 @media screen and (min-width: 750px) {

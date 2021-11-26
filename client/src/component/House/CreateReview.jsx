@@ -4,7 +4,7 @@ import StarRatings from '../../../node_modules/react-star-ratings';
 import { useDispatch, useSelector } from 'react-redux';
 import { createReview, editOldReview } from './../../actions/review';
 
-const CreateReview = ({houseId}) => {
+const CreateReview = ({houseId,userName}) => {
     const editReviewStatus = useSelector(state=>state.editReview.edit)
     const editReview = useSelector(state=>state.editReview)
     const reviewList = useSelector(state=>state.review)
@@ -42,11 +42,11 @@ const CreateReview = ({houseId}) => {
         setreviewState({...reviewState, ratings: newRating})
       }
     return ( 
-        <div className='mt-2 review-box'>
-            <h3>Give Ratings as {}</h3>
+        <div className='review-box'>
+            <h4>Give Ratings as {userName}</h4>
             <StarRatings
                 rating={reviewState.ratings}
-                starRatedColor="blue"
+                starRatedColor="#d84c4d"
                 changeRating={changeRating}
                 numberOfStars={5}
                 name='ratings'
@@ -54,7 +54,7 @@ const CreateReview = ({houseId}) => {
                 starSpacing='5px'
                 />
 
-            <form type="submit" onSubmit={handleSubmit} className='mb-5'>
+            <form type="submit" onSubmit={handleSubmit} className='mt-2 mb-5'>
                 <div className="form-row">
                     <Input width="full"
                         change={e=>setreviewState({...reviewState, review:e})}

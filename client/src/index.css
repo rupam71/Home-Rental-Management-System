@@ -11,3 +11,108 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+h1,
+.heading-1 {
+ font-size: 34px;
+ line-height: 1.2;
+}
+@media (min-width: 768px) {
+ h1,
+ .heading-1 {
+  font-size: 45px;
+ }
+}
+@media (min-width: 1200px) {
+ h1,
+ .heading-1 {
+  font-size: 60px;
+  line-height: 1.09722;
+ }
+}
+@media (min-width: 1600px) {
+ h1,
+ .heading-1 {
+  font-size: 72px;
+ }
+}
+h2,
+.heading-2 {
+ font-weight: 500;
+ font-size: 26px;
+ line-height: 1.3;
+}
+@media (min-width: 768px) {
+ h2,
+ .heading-2 {
+  font-size: 32px;
+  line-height: 1.09375;
+ }
+}
+@media (min-width: 992px) {
+ h2,
+ .heading-2 {
+  font-size: 44px;
+ }
+}
+@media (min-width: 1200px) {
+ h2,
+ .heading-2 {
+  font-size: 64px;
+ }
+}
+h3,
+.heading-3 {
+ font-size: 22px;
+ line-height: 1.45;
+}
+@media (min-width: 768px) {
+ h3,
+ .heading-3 {
+  font-size: 28px;
+ }
+}
+@media (min-width: 1200px) {
+ h3,
+ .heading-3 {
+  font-size: 48px;
+  line-height: 1.20833;
+ }
+}
+h4,
+.heading-4 {
+ font-size: 20px;
+ line-height: 1.35;
+}
+@media (min-width: 768px) {
+ h4,
+ .heading-4 {
+  font-size: 22px;
+ }
+}
+@media (min-width: 1200px) {
+ h4,
+ .heading-4 {
+  font-size: 30px;
+  line-height: 1.1;
+ }
+}
+h5,
+.heading-5 {
+ font-size: 16px;
+ line-height: 1.45;
+}
+@media (min-width: 992px) {
+ h5,
+ .heading-5 {
+  font-size: 20px;
+  line-height: 1.2;
+ }
+}
+h6,
+.heading-6 {
+ font-weight: 400;
+ font-size: 18px;
+ line-height: 1.61111;
+ text-transform: uppercase;
+}

@@ -1,12 +1,34 @@
 .review-box{
     background-color: aliceblue;
     padding-top: 1rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
     margin-bottom: 1rem;
+    h4{
+        box-sizing: border-box;
+        color: rgb(0, 0, 0);
+        font-family: "Red Hat Display", Helvetica, Arial, sans-serif;
+        font-size: 22px;
+        font-weight: 500;
+        line-height: 29.7px;
+        margin-bottom: 1rem;
+        margin-top: 0px;
+        -moz-text-size-adjust: none
+    }
     p{
+        box-sizing: border-box;
+        color: rgb(82, 77, 77);
+        display: block;
+        font-family: "Red Hat Display", Helvetica, Arial, sans-serif;
         font-size: 15px;
-        text-align: right;
+        font-weight: 500;
+        letter-spacing: 0.6px;
+        line-height: 16px;
+        margin-bottom: 0px;
+        margin-left: 0px;
+        margin-right: 0px;
+        margin-top: 14px;
+        -moz-text-size-adjust: none
     }
     .description{
         margin: 0;
@@ -16,6 +38,8 @@
     }
     .dropbtn{
         background-color: #F0F8FF;
+        font-size: 8px;
+        border: none;
     }
     .dropdown {
         margin: 0rem auto ;
@@ -23,6 +47,9 @@
     form {
         .form-row{
             .form-group{
+                input{
+                    background-color: white;
+                }
                 label {display: none;}
             }
         }

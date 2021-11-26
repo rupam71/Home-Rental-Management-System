@@ -21,7 +21,7 @@ const Login = () => {
     }
     return ( 
         <div className='container mt-5'>
-            <h1 className='text-center mb-5'> Login </h1>
+            <h2 className='text-center mb-5'> Login </h2>
             <form onSubmit={handleSubmit} className='mb-5'>
                 <div className="form-row">
                     <Input width="full"
@@ -31,7 +31,7 @@ const Login = () => {
                         change={e=>setlogin({...login, password:e})}
                         type="password" label='Password' value={login.password}/>
                 </div>
-                <button type="submit" className="btn btn-primary btn-lg my-3">Login</button>
+                <button type="submit" className="btn btn-primary btn-block">Login</button>
                 <br/>
                 <Link to="/signup" >No Active Account? Create Here...</Link>
             </form>

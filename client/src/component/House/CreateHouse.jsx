@@ -49,7 +49,7 @@ const CreateHouse = () => {
     
     return (
         <div className='container mt-5'>
-            <h1 className='text-center mb-5'> House Information </h1>
+            <h2 className='text-center mb-5'> House Information </h2>
             <form onSubmit={handleSubmit} className='mb-5'>
                 <div className="form-row">
                     <Input
@@ -80,7 +80,7 @@ const CreateHouse = () => {
                     change={e=>sethouseState({...houseState, description:e})}
                     type="text" label='House Description' value={houseState.description}/>
                 </div>
-                <button type="submit" className="btn btn-primary btn-lg my-3">Submit</button>
+                <button type="submit" className="btn btn-primary btn-block">Submit</button>
             </form>
         </div>
     );

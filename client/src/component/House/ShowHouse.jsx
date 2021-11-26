@@ -19,10 +19,11 @@ const ShowHouse = () => {
     const user = useSelector(state => state.auth.user)
 
     console.log("houseData ::: ",houseData)
-    let userId,bookmarkLength
+    let userId,bookmarkLength,userName
     if (user) {
         userId = user._id 
         bookmarkLength = user.bookmarkedHouse.length
+        userName=user.name
     }
 
     const houseId = useParams().id
@@ -123,7 +124,7 @@ const ShowHouse = () => {
         }
     }
     const rentButtonRender = () => {
-        if (user && houseData[0].houseOwnerId !== userId && houseData[0].houseStatus === 'available') return <div className="dropdown d-flex justify-content-end mt-2 mx-4">
+        if (user && houseData[0].houseOwnerId !== userId && houseData[0].houseStatus === 'available') return <div className="dropdown d-flex justify-content-end my-2 mr-2">
         <Link onClick={() => dispatch(createRent({ houseId }))}
             className="btn btn-primary btn-block"
         >Rent This House</Link>
@@ -289,69 +290,89 @@ const ShowHouse = () => {
     //         </div>
     //     </div>
     // );
+    const HouseInfo = () => {
+        return <div className="houseInfo">
+            <div className="row">
+                <div className="col-10">
+                    <h4>{houseData[0].houseAddress}</h4>
+                </div>
+                <div className="col-2">
+                    {dropdownRender()}
+                </div>
+            </div>
+            <p>{houseData[0].description}</p>
+            <h5>Features</h5>
+            <div className="row">
+                <div className="col-6">
+                    <ul>
+                        <HouseProfileList 
+                        property={`${houseData[0].totalRoomNo} room`} />
+                        <HouseProfileList 
+                        property={`${houseData[0].totalToilet} Toilet`} />
+                        <HouseProfileList 
+                        property={`${houseData[0].size} Area Sq/M`} />
+                        <HouseProfileList 
+                        property={`${houseData[0].totalView} Time Viewd`} />
+                        <HouseProfileList 
+                        property={handleAvailibility(houseData[0].houseStatus)} />
+                    </ul>
+                </div>
+                <div className="col-6">
+                    <ul>
+                        <HouseProfileList 
+                        property={`${houseData[0].bedRoom} BedRoom`} />
+                        <HouseProfileList 
+                        property={`${houseData[0].totalbalcony} Balcony`} />
+                        <HouseProfileList 
+                        property={`${houseData[0].totalRented} Time Rented`} />
+                        <HouseProfileList 
+                        property={`${houseData[0].bookmarkedBy.length} User Bookmarked`} />
+                        <HouseProfileList 
+                        property={`House created at ${findDay(houseData[0].createdAt.slice(0, 10))}`} />
+                    </ul>
+                </div>
+            </div>
+            <h5>Rent Fee</h5>
+            <div className="price">
+                <span className="signPrice">Tk</span>
+                <span className="mainPrice">{houseData[0].rentFee}</span>
+                <span className="decPrice">/per month</span>
+            </div>
+            <h5>+ Additional <span className="addPrice">{houseData[0].addittionalCharge}</span>/per month</h5>
+            {rentButtonRender()}
+        </div>
+    } 
+
     return(
         <div className="container showHouse">
-            <div className="row row-30">
-                <div className="col-md-6 col-xl-7">
-                    <div className="slick-gallery">
+            <div className="row">
+                <div className="col-md-7 col-xl-7">
+                    <div className="row">
+                        <div className="col-12">
+                            <div className="slick-gallery">
+                                {HousePictureRender(houseData[0].houseImagesLength)} 
+                            </div>
+                            <div className="houseInfoSmallScreen px-3">
+                                <HouseInfo />
+                            </div>
+                            <ShowReview houseId={houseId} userId={userId}
+                                houseOwnerId={houseData[0].houseOwnerId}
+                            />
+                            {!user ? '' : <CreateReview houseId={houseId} userName={userName}/>}
+                        </div>
+                    </div>
+                    {/* <div className="slick-gallery">
                         {HousePictureRender(houseData[0].houseImagesLength)}
 
-                        <ShowReview houseId={houseId} userId={userId}
+                        {/* <ShowReview houseId={houseId} userId={userId}
                             houseOwnerId={houseData[0].houseOwnerId}
                         />
-                        {!user ? '' : <CreateReview houseId={houseId} />}
-                    </div>
+                        {!user ? '' : <CreateReview houseId={houseId} />} 
+                    </div> */}
                 </div>
-                <div className="col-md-6 col-xl-5">
-                    <div className="houseInfo">
-                        <div className="row">
-                            <div className="col-10">
-                                <h4>{houseData[0].houseAddress}</h4>
-                            </div>
-                            <div className="col-2">
-                                {dropdownRender()}
-                            </div>
-                        </div>
-                        <p>{houseData[0].description}</p>
-                        <h5>Features</h5>
-                        <div className="row">
-                            <div className="col-6">
-                                <ul>
-                                    <HouseProfileList 
-                                    property={`${houseData[0].totalRoomNo} room`} />
-                                    <HouseProfileList 
-                                    property={`${houseData[0].totalToilet} Toilet`} />
-                                    <HouseProfileList 
-                                    property={`${houseData[0].size} Area Sq/M`} />
-                                    <HouseProfileList 
-                                    property={`${houseData[0].totalView} Time Viewd`} />
-                                    <HouseProfileList 
-                                    property={handleAvailibility(houseData[0].houseStatus)} />
-                                </ul>
-                            </div>
-                            <div className="col-6">
-                                <ul>
-                                    <HouseProfileList 
-                                    property={`${houseData[0].bedRoom} BedRoom`} />
-                                    <HouseProfileList 
-                                    property={`${houseData[0].totalbalcony} Balcony`} />
-                                    <HouseProfileList 
-                                    property={`${houseData[0].totalRented} Time Rented`} />
-                                    <HouseProfileList 
-                                    property={`${houseData[0].bookmarkedBy.length} User Bookmarked`} />
-                                    <HouseProfileList 
-                                    property={`House created at ${findDay(houseData[0].createdAt.slice(0, 10))}`} />
-                                </ul>
-                            </div>
-                        </div>
-                        <h5>Rent Fee</h5>
-                        <div className="price">
-                            <span className="signPrice">Tk</span>
-                            <span className="mainPrice">{houseData[0].rentFee}</span>
-                            <span className="decPrice">/per month</span>
-                        </div>
-                        <h5>+ Additional <span className="addPrice">{houseData[0].addittionalCharge}</span>/per month</h5>
-                        {rentButtonRender()}
+                <div className="col-md-5 col-xl-5">
+                    <div className="houseInfoBigScreen">
+                        <HouseInfo />
                     </div>
                 </div>
             </div>
@@ -360,3 +381,4 @@ const ShowHouse = () => {
 }
 
 export default ShowHouse;
+
