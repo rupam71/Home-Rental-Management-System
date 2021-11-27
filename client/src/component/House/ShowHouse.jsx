@@ -135,7 +135,7 @@ const ShowHouse = () => {
     }
     const dropdownRender = () => {
         if (user && houseData[0].houseStatus === 'available' && houseData[0].houseOwnerId === userId) return <div className="dropdown dropdown d-flex justify-content-end">
-            <button className="dropbtn"><h2><i className="fas fa-sliders-h" /></h2></button>
+            <button className="dropbtn"><h5><i className="fas fa-sliders-h" /></h5></button>
             <div className="dropdown-content">
                 <div className='text-center'>
                     <Link to={`/edithouse/${houseData[0]._id}`} className='item'>Edit House</Link>
@@ -221,7 +221,7 @@ const ShowHouse = () => {
     //                         {HousePictureRender(house.houseImagesLength, house._id)}
     //                         <div className="row my-4">
     //                             <div className="col-10">
-    //                                 <h2>{house.houseAddress}</h2>
+    //                                 <h5>{house.houseAddress}</h5>
     //                                 <h4 className="card-text">{house.description}</h4>
     //                             </div>
     //                             <div className="col-2">
@@ -273,7 +273,7 @@ const ShowHouse = () => {
     //                 <h1 className='text-center'>House Owner</h1>
     //                 {houseOwner.map(user => {
     //                     return <div key={user._id}>
-    //                         <h2 className="">{user.name}</h2>
+    //                         <h5 className="">{user.name}</h5>
     //                         <h3 className="">{user.email}</h3>
     //                         <h3 className="">Phone : {user.phoneNumber}</h3>
     //                         <h3 className="">Address : {user.address}</h3>

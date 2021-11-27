@@ -11,7 +11,7 @@ const ShowReview = ({ userId, houseId, houseOwnerId }) => {
 
     const dropdownRender = (id, reviewId) => {
         if (id === userId) return <div className="dropdown d-flex justify-content-end">
-            <button className="dropbtn text-end"><h2><i className="fas fa-sliders-h" /></h2></button>
+            <button className="dropbtn text-end"><h5><i className="fas fa-sliders-h" /></h5></button>
             <div className="dropdown-content">
                 <div className='text-center'>
                     <Link to={`/house/${houseId}`} onClick={() => dispatch(getReviewById(reviewId))} className='item'> Edit Your Review</Link>
@@ -23,7 +23,7 @@ const ShowReview = ({ userId, houseId, houseOwnerId }) => {
         </div>
 
         else if (houseOwnerId === userId) return <div className="dropdown d-flex justify-content-end">
-            <button className="dropbtn text-end"><h2><i className="fas fa-sliders-h" /></h2></button>
+            <button className="dropbtn text-end"><h5><i className="fas fa-sliders-h" /></h5></button>
             <div className="dropdown-content">
                 <div className='text-center'>
                     <Link to={`/house/${houseId}`} className='item' onClick={() => dispatch(deleteReviewByHO(reviewId))}>Delete This Review</Link>

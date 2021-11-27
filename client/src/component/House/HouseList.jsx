@@ -21,7 +21,7 @@ const HouseList = ({ headline }) => {
                             <img className="card-img-top mx-auto" src={`/api/house/${house._id}/picture/0`} alt="Card Avatar" style={{ width: '100%', margin: '0 0' }} />
                             <div className='cardFee'>{house.rentFee} Per Month</div>
                             <div className="card-body">
-                                <h3 className="card-title">{house.houseAddress}</h3>
+                                <h5 className="card-title">{house.houseAddress}</h5>
                                 <div className="row">
                                     <div className="col-6">
                                         <p>{house.totalRoomNo} Room</p>

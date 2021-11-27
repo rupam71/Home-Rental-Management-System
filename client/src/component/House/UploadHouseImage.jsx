@@ -144,7 +144,7 @@ const UploadHouseImage = () => {
     }
     return ( 
         <div style={{margin:"0 auto",width:"90%"}}>
-            <h1 className="text-center" id='uploadHouseImageHeading'> Upload House Image </h1>
+            <h2 className="text-center" id='uploadHouseImageHeading'> Upload House Image </h2>
             <p className="text-center"> Upto 8 picture </p>
 
             <div className="row mt-5">
@@ -152,9 +152,9 @@ const UploadHouseImage = () => {
                     {addImageRender()}
                 </div>
                 {houseImagesLink.length===0?'': <div className="col-md-6">
-                   <h3 className='text-center'> Here Total {houseImagesLink.length} Picture </h3>
-                   <h3 className='text-center'> {8-houseImagesLink.length} More Picture can Upload </h3>
-                   <h3 className='text-center text-danger'> Click Picture To Remove </h3>
+                   <h5 className='text-center'> Here Total {houseImagesLink.length} Picture </h5>
+                   <h5 className='text-center'> {8-houseImagesLink.length} More Picture can Upload </h5>
+                   <h5 className='text-center text-danger'> Click Picture To Remove </h5>
                    {houseImagesLink.map(img=>{
                        return <a href='#uploadHouseImageHeading' key={img}><img src={img} onClick={()=>removeImage(img)} alt="House PhotosS" className='col-6 previewImage' /></a>
                    })}

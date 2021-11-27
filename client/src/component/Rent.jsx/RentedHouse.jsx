@@ -35,7 +35,7 @@ const RentedHouse = ({userId,userName}) => {
                             <img className="card-img-top mx-auto" src={`/api/house/${rent.houseId._id}/picture/0`} alt="Card Avatar" style={{ width: '100%', margin: '0 0' }} />
                             <div className='cardFee'>Rented</div>
                             <div className="card-body">
-                                <h3 className="card-title">{rent.houseId.houseAddress}</h3>
+                                <h5 className="card-title">{rent.houseId.houseAddress}</h5>
                                 <div className="row">
                                     <div className="col-6">
                                         <p>{rent.houseId.totalRoomNo} Room</p>

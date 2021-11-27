@@ -71,7 +71,7 @@ const UploadImage = () => {
               );
     }
 
-    return  <div style={{border:'2px solid red',padding:'1rem'}}> 
+    return  <div style={{border:'2px solid red',padding:'1rem 1rem 3rem 1rem',margin:'5% 10%'}}> 
     <h2 className='my-3'>Change Profile Picture</h2>
     <form encType="multipart/form-data" >
         <input type="file" onChange={handlePreview}
