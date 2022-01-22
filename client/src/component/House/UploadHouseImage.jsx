@@ -125,7 +125,7 @@ const UploadHouseImage = () => {
                         </button>
                         </div> )}
                     {result && ( <div className='text-center' id='preview'>
-                        <h2 >Preview Croped Image</h2>
+                        <h5 >Preview Croped Image</h5>
                         <img src={result} alt="House Photos"/><br/>
                         <button onClick={handleUpload} className="btn btn-default btn-lg my-3">
                         <a href='#addInQueue' style={{textDecoration:'none',color:'black'}}>
